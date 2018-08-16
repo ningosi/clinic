@@ -3175,11 +3175,9 @@
                               </obsgroup>
                               <obsgroup groupingConceptId="5a91ad01-fd51-4501-b6a2-8637c9bc1555">
                                  <tr>
+                                     <td>Other insulin medication</td>
                                     <td>
-                                       <obs conceptId="1282" answerConceptId="ee5647b4-3ebf-48ae-9428-2558118de260" answerLabel="Other insulin medication" style="checkbox" class="align-checkbox-input"/>
-                                    </td>
-                                    <td>
-                                       <obs conceptId="1443AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" />
+                                       <obs conceptId="5fdb89e1-d6f5-484d-abaa-ff2a18e12621" />
                                     </td>
                                     <td>
                                        <obs conceptId="160855AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptIds="160862AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,160858AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,160866AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabels="OD,BD,TDS" style="dropdown" />
