@@ -73,7 +73,7 @@
         </sql>
     </changeSet>
 
-  <changeSet id="aihd-20180508-114340" author="ekirapa" dbms="mysql">
+    <changeSet id="aihd-20180508-114340" author="ekirapa" dbms="mysql">
         <preConditions onFail="MARK_RAN">
             <sqlCheck expectedResult="0">
                 SELECT COUNT(*) FROM scheduler_task_config
@@ -95,6 +95,7 @@
             <column name="uuid" value="a584c4f8-51f5-11e8-851a-43d78ad3836c"/>
         </insert>
     </changeSet>
+
   <changeSet id="aihd-20180614-1022" author="ningosi" dbms="mysql">
         <preConditions onFail="MARK_RAN">
             <sqlCheck expectedResult="0">
@@ -118,5 +119,5 @@
         </insert>
     </changeSet>
 
-    
+
 </databaseChangeLog>
