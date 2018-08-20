@@ -1,6 +1,7 @@
 package org.openmrs.module.aihdconfigs.utils;
 
 
+import org.apache.commons.lang3.StringUtils;
 import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -124,7 +125,6 @@ public class JSONParserUtil {
     }
 
     public static void readJSOFile() {
-        log.info("Reading JSON files...");
         List<File> directory_files = getFilesFromDir();
         for (File jsonFile : directory_files) {
             if (jsonFile.getName().endsWith(".json")) {
@@ -133,7 +133,6 @@ public class JSONParserUtil {
                     ObjectMapper mapper = new ObjectMapper();
                     ;
                     JsonNode rootNode = mapper.readTree(fileReader);
-                    log.error("Looping " + rootNode.size());
                     JsonNode obsNode = rootNode.path("obs");
                     JsonNode encounterDateNode = rootNode.path("encounterDate");
                     JsonNode patientId = rootNode.path("patient_id");
@@ -143,7 +142,8 @@ public class JSONParserUtil {
                     JsonNode formName = rootNode.path("formDescription");
 
                     SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                    Date date = null;
+                    SimpleDateFormat dateOnly = new SimpleDateFormat("yyyy-MM-dd");
+                    Date date;
                     try {
                         String dateString = encounterDateNode.getTextValue();
                         date = formatter.parse(dateString);
@@ -156,7 +156,6 @@ public class JSONParserUtil {
                         Location location = Context.getLocationService().getLocation(locationName);
                         EncounterRole encounterRole = Context.getEncounterService().getEncounterRoleByUuid("a0b03050-c99b-11e0-9572-0800200c9a66");
                         Form form = Context.getFormService().getFormByUuid(formName.getTextValue());
-
                         if (provider.size() > 0 && location != null && date != null && patient != null && form != null) {
 
                             Encounter encounter = new Encounter();
@@ -175,38 +174,57 @@ public class JSONParserUtil {
                             Set<Obs> obsSet = new HashSet<Obs>();
                             for (JsonObs obs : jsonObs) {
                                 if (obs != null && obs.getConcept_id() != null) {
-                                    Obs observation = new Obs();
                                     Concept concept = Context.getConceptService().getConcept(obs.getConcept_id());
+                                    Obs observation = new Obs();
                                     if (concept != null) {
                                         observation.setConcept(concept);
-                                    } else {
-                                        continue;
-                                    }
-                                    observation.setLocation(location);
-                                    observation.setPerson(user.getPerson());
+                                        observation.setLocation(location);
+                                        observation.setPerson(patient.getPerson());
+                                        observation.setCreator(user);
+                                        observation.setDateCreated(new Date());
+                                        observation.setEncounter(encounter);
 
-                                    if (!obs.getDatetime().isEmpty()) {
-                                        Date obsDateTime = formatter.parse(obs.getDatetime());
-                                        observation.setObsDatetime(obsDateTime);
-                                    } else {
-                                        observation.setObsDatetime(date);
+                                        if (StringUtils.isNotEmpty(obs.getDatetime())) {
+                                            observation.setObsDatetime(formatter.parse(obs.getDatetime()));
+                                        } else {
+                                            observation.setObsDatetime(date);
+                                        }
+                                        if (StringUtils.isNotEmpty(obs.getGroup_id())) {
+                                            Obs grpObs = new Obs();
+                                            grpObs.setEncounter(encounter);
+                                            grpObs.setObsDatetime(date);
+                                            grpObs.setDateCreated(new Date());
+                                            grpObs.setLocation(location);
+                                            grpObs.setPerson(patient.getPerson());
+                                            grpObs.setConcept(Context.getConceptService().getConcept(obs.getGroup_id()));
+                                            //save the obs group in the DB
+                                            Context.getObsService().saveObs(grpObs, "Obs group");
+                                            //add the obs group to the observation being saved
+                                            observation.setObsGroup(grpObs);
+                                        }
+                                        if(StringUtils.isNotEmpty(obs.getComment())){
+                                            observation.setComment(obs.getComment());
+                                        }
+                                        if (obs.getType().equals("valueText")) {
+                                            observation.setValueText(obs.getConcept_answer());
+                                        } else if (obs.getType().equals("valueNumeric")) {
+                                            observation.setValueNumeric(Double.valueOf(obs.getConcept_answer()));
+                                        } else if(obs.getType().equals("valueCoded")){
+                                            Concept value = Context.getConceptService().getConcept(obs.getConcept_answer());
+                                            observation.setValueCoded(value);
+                                        }
+                                        else if(obs.getType().equals("valueDatetime")){
+                                            observation.setValueDatetime(formatter.parse(obs.getConcept_answer()));
+                                        }
+                                        else if(obs.getType().equals("valueDate")){
+                                            observation.setValueDatetime(dateOnly.parse(obs.getConcept_answer()));
+                                        }
+                                        //add an extra statement to handle drugs
+                                        obsSet.add(observation);
                                     }
-                                    if (!obs.getGroup_id().isEmpty()) {
-                                        observation.setValueGroupId(Integer.valueOf(obs.getGroup_id()));
-                                    }
-                                    if (obs.getType().equals("valueText")) {
-                                        observation.setValueText(obs.getConcept_answer());
-                                    } else if (obs.getType().equals("valueNumeric")) {
-                                        observation.setValueNumeric(Double.valueOf(obs.getConcept_answer()));
-                                    } else {
-                                        Concept value = Context.getConceptService().getConcept(obs.getConcept_answer());
-                                        observation.setValueCoded(value);
-                                    }
-//                                        Context.getObsService().saveObs(observation,"");
-                                    obsSet.add(observation);
+
                                 }
                             }
-//                                Context.getEncounterService().saveEncounter(encounter);
                             Visit visit = new Visit();
                             visit.setStartDatetime(formatter.parse(encounterDateNode.getTextValue()));
                             visit.setPatient(patient);
