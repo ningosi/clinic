@@ -172,10 +172,12 @@ public class JSONParserUtil {
                                     mapper.getTypeFactory().constructCollectionType(
                                             List.class, JsonObs.class));
                             Set<Obs> obsSet = new HashSet<Obs>();
+                            Set<Obs> setGrpObs = new HashSet<Obs>();
                             for (JsonObs obs : jsonObs) {
                                 if (obs != null && obs.getConcept_id() != null) {
                                     Concept concept = Context.getConceptService().getConcept(obs.getConcept_id());
                                     Obs observation = new Obs();
+                                    Obs grpObs = new Obs();
                                     if (concept != null) {
                                         observation.setConcept(concept);
                                         observation.setLocation(location);
@@ -190,16 +192,13 @@ public class JSONParserUtil {
                                             observation.setObsDatetime(date);
                                         }
                                         if (StringUtils.isNotEmpty(obs.getGroup_id())) {
-                                            Obs grpObs = new Obs();
                                             grpObs.setEncounter(encounter);
                                             grpObs.setObsDatetime(date);
                                             grpObs.setDateCreated(new Date());
                                             grpObs.setLocation(location);
                                             grpObs.setPerson(patient.getPerson());
                                             grpObs.setConcept(Context.getConceptService().getConcept(obs.getGroup_id()));
-                                            //save the obs group in the DB
-                                            Context.getObsService().saveObs(grpObs, "Obs group");
-                                            //add the obs group to the observation being saved
+                                            //probably save the obs group before using it?
                                             observation.setObsGroup(grpObs);
                                         }
                                         if(StringUtils.isNotEmpty(obs.getComment())){
