@@ -90,22 +90,23 @@ public class FormatAIHDNumbersTask extends AbstractTask {
                           if(attribute.size() > 0){
                               for(LocationAttribute locationAttribute: attribute){
                                   if(locationAttribute.getAttributeType().equals(locationAttributeType)){
+
                                       prefix = (String) locationAttribute.getValue();
                                       suffix = String.valueOf(identifierList_forPatientsWithoutId(pit, patientService, prefix) + 1);
                                       String finalSuffixes = finalSuffix(suffix);
                                       UUID uuid = UUID.randomUUID();
-
                                       PatientIdentifier aihdId = new PatientIdentifier();
                                       aihdId.setIdentifierType(pit);
                                       aihdId.setUuid(String.valueOf(uuid));
                                       aihdId.setIdentifier(prefix+"-"+finalSuffixes);
                                       aihdId.setLocation(location);
-                                      aihdId.setPatient(p);
                                       aihdId.setPreferred(true);
                                       aihdId.setCreator(Context.getAuthenticatedUser());
                                       aihdId.setDateCreated(new Date());
 
-                                      patientService.savePatient(p);
+                                      //
+                                      p.addIdentifier(aihdId);
+
                                   }
                               }
                           }
