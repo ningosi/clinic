@@ -8,7 +8,6 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.openmrs.*;
 import org.openmrs.api.ProviderService;
 import org.openmrs.api.context.Context;
-import org.openmrs.module.aihdconfigs.Dictionary;
 import org.openmrs.util.OpenmrsUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,8 +19,7 @@ import org.xml.sax.SAXParseException;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import java.io.File;
-import java.io.FileReader;
+import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -61,11 +59,26 @@ public class JSONParserUtil {
         return true;
     }
 
-    private static boolean moveUnparsabbleFiles(File file) {
+    private static boolean moveUnprocessesFile(File file, String exception) {
         File processed_dir = new File(OpenmrsUtil.getApplicationDataDirectory() + "/failed");
         if (!processed_dir.exists()) {
             if (!processed_dir.mkdirs())
                 return false;
+        }
+        PrintWriter out = null;
+        try {
+            if (file.canWrite()) {
+                out = new PrintWriter(new BufferedWriter(new FileWriter(file, true)));
+                out.println(exception);
+            }else{
+                log.error("Cant write to file");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (out != null) {
+                out.close();
+            }
         }
         String newFileName = file.getName() + "_" + new Date().toString();
         newFileName = newFileName.replace(" ", "_");
@@ -231,6 +244,25 @@ public class JSONParserUtil {
                                         }
 
                                     }
+                                    Visit visit = new Visit();
+                                    visit.setStartDatetime(formatter.parse(encounterDateNode.getTextValue()));
+                                    visit.setPatient(patient);
+                                    visit.setLocation(location);
+                                    visit.setCreator(user);
+                                    VisitType visitType = Context.getVisitService().getVisitTypeByUuid("7b0f5697-27e3-40c4-8bae-f4049abfb4ed");
+                                    if (visitType != null) {
+                                        visit.setVisitType(visitType);
+                                    }
+                                    if (obsSet.size() > 0) {
+                                        log.error("Saving obs");
+                                        encounter.setObs(obsSet);
+                                    } else {
+                                        //Void the created encounter
+                                        Context.getEncounterService().voidEncounter(encounter, "Created Empty encounter");
+                                        throw new Exception("Empty encounter with no observations");
+                                    }
+                                    encounter.setVisit(visit);
+                                    Context.getEncounterService().saveEncounter(encounter);
                                 }
                                 Visit visit = new Visit();
                                 visit.setStartDatetime(formatter.parse(encounterDateNode.getTextValue()));
@@ -251,15 +283,30 @@ public class JSONParserUtil {
                                 }
                                 encounter.setVisit(visit);
                                 Context.getEncounterService().saveEncounter(encounter);
+                            } else if (patient == null) {
+                                throw new NullPointerException("Patient object is null");
+                            } else if (location == null) {
+                                throw new NullPointerException("Location object is null");
+                            } else if (date == null) {
+                                throw new NullPointerException("Encounter date object is null");
+                            } else if (form == null) {
+                                throw new NullPointerException("Form object is null");
+                            } else {
+                                throw new NullPointerException("Null object in imputs");
                             }
 
                         } catch (ParseException e) {
+                            moveUnprocessesFile(jsonFile, parseException(e));
                             e.printStackTrace();
                         } catch (JsonParseException e) {
-                            moveUnparsabbleFiles(jsonFile);
+                            moveUnprocessesFile(jsonFile, parseException(e));
+                            e.printStackTrace();
+                            parseException(e);
+                        } catch (NullPointerException e) {
+                            moveUnprocessesFile(jsonFile, parseException(e));
                             e.printStackTrace();
                         } catch (Exception e) {
-                            moveUnparsabbleFiles(jsonFile);
+                            moveUnprocessesFile(jsonFile, parseException(e));
                             e.printStackTrace();
                         }
 
@@ -268,15 +315,19 @@ public class JSONParserUtil {
                         moveProcessedFiles(jsonFile);
 
                     } catch (Exception e) {
-                        if (e instanceof JsonParseException) {
-                            moveUnparsabbleFiles(jsonFile);
-                        }
+                        moveUnprocessesFile(jsonFile, parseException(e));
                         e.printStackTrace();
                     }
                 }
-                //else delete that file probably by sending to a different unrecognized folder
             }
         }
+    }
+
+    private static String parseException(Exception e) {
+        StringWriter writer = new StringWriter();
+        PrintWriter printWriter = new PrintWriter(writer);
+        e.printStackTrace(printWriter);
+        return writer.toString();
     }
 
 }
