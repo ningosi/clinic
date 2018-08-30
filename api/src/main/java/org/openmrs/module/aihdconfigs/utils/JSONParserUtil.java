@@ -116,7 +116,6 @@ public class JSONParserUtil {
                                 for (int j = 0; j < obs_nodelist.getLength(); j++) {
                                     Node obs_node = obs_nodelist.item(j);
                                     if (obs_node.getNodeName().equals("obs")) {
-                                        String concept_id = ((Element) obs_node).getElementsByTagName("concept").item(0).getTextContent();
                                         String answer_concept_id = ((Element) obs_node).getElementsByTagName("answerConcept").item(0).getTextContent();
                                         if (answer_concept_id.isEmpty())
                                             System.out.println("empty");
@@ -182,7 +181,6 @@ public class JSONParserUtil {
                                 encounter.setCreator(user);
                                 encounter.addProvider(encounterRole, provider.get(0));
                                 encounter.setForm(form);
-                                //Context.getEncounterService().saveEncounter(encounter);
                                 List<JsonNode> singleObsNodes = new ArrayList<JsonNode>();
                                 List<JsonNode> groupObsNodes = new ArrayList<JsonNode>();
                                 for (JsonNode jsonNode : obsNode) {
@@ -197,39 +195,42 @@ public class JSONParserUtil {
                                         singleObsNodes.toString(),
                                         mapper.getTypeFactory().constructCollectionType(
                                                 List.class, JsonObs.class));
-                                Set<Obs> obsSet = new HashSet<Obs>();
+                                Set<Obs> obsSet_single = new HashSet<Obs>();
+                                Set<Obs> obsSet_group = new HashSet<Obs>();
+                                Set<Obs> combined_set = new HashSet<Obs>();
+
                                 for (JsonObs obs : singleJsonObs) {
                                     if (obs != null && obs.getConcept_id() != null) {
                                         Concept concept = Context.getConceptService().getConcept(obs.getConcept_id());
-                                        Obs observation = new Obs();
+                                        Obs observation_single = new Obs();
                                         Obs grpObs = new Obs();
                                         if (concept != null) {
-                                            observation.setConcept(concept);
-                                            observation.setLocation(location);
-                                            observation.setPerson(patient.getPerson());
-                                            observation.setCreator(user);
-                                            observation.setDateCreated(new Date());
-                                            observation.setEncounter(encounter);
+                                            observation_single.setConcept(concept);
+                                            observation_single.setLocation(location);
+                                            observation_single.setPerson(patient.getPerson());
+                                            observation_single.setCreator(user);
+                                            observation_single.setDateCreated(new Date());
+                                            observation_single.setEncounter(encounter);
 
                                             if (StringUtils.isNotEmpty(obs.getDatetime())) {
-                                                observation.setObsDatetime(formatter.parse(obs.getDatetime()));
+                                                observation_single.setObsDatetime(formatter.parse(obs.getDatetime()));
                                             } else {
-                                                observation.setObsDatetime(date);
+                                                observation_single.setObsDatetime(date);
                                             }
                                             if (StringUtils.isNotEmpty(obs.getComment())) {
-                                                observation.setComment(obs.getComment());
+                                                observation_single.setComment(obs.getComment());
                                             }
                                             if (obs.getType().equals("valueText")) {
-                                                observation.setValueText(obs.getConcept_answer());
+                                                observation_single.setValueText(obs.getConcept_answer());
                                             } else if (obs.getType().equals("valueNumeric")) {
-                                                observation.setValueNumeric(Double.valueOf(obs.getConcept_answer()));
+                                                observation_single.setValueNumeric(Double.valueOf(obs.getConcept_answer()));
                                             } else if (obs.getType().equals("valueCoded")) {
                                                 Concept value = Context.getConceptService().getConcept(obs.getConcept_answer());
-                                                observation.setValueCoded(value);
+                                                observation_single.setValueCoded(value);
                                             } else if (obs.getType().equals("valueDatetime")) {
-                                                observation.setValueDatetime(formatter.parse(obs.getConcept_answer()));
+                                                observation_single.setValueDatetime(formatter.parse(obs.getConcept_answer()));
                                             } else if (obs.getType().equals("valueDate")) {
-                                                observation.setValueDatetime(dateOnly.parse(obs.getConcept_answer()));
+                                                observation_single.setValueDatetime(dateOnly.parse(obs.getConcept_answer()));
                                             }
 
                                             if (StringUtils.isNotEmpty(obs.getGroup_id())) {
@@ -242,49 +243,25 @@ public class JSONParserUtil {
                                                     grpObs.setPerson(patient.getPerson());
                                                     grpObs.setConcept(concept1);
                                                     grpObs.setValueCoded(null);
-                                                    //probably save the obs group before using it?
-                                                    grpObs.addGroupMember(observation);
-                                                    //observation.setObsGroup(grpObs);
-                                                    obsSet.add(grpObs);
+                                                    grpObs.addGroupMember(observation_single);
                                                 }
-                                            } else {
-                                                obsSet.add(observation);
                                             }
+                                            obsSet_single.add(observation_single);
+
                                         }
 
                                     }
-                                    Visit visit = new Visit();
-                                    visit.setStartDatetime(formatter.parse(encounterDateNode.getTextValue()));
-                                    visit.setPatient(patient);
-                                    visit.setLocation(location);
-                                    visit.setCreator(user);
-                                    VisitType visitType = Context.getVisitService().getVisitTypeByUuid("7b0f5697-27e3-40c4-8bae-f4049abfb4ed");
-                                    if (visitType != null) {
-                                        visit.setVisitType(visitType);
-                                    }
-                                    if (obsSet.size() > 0) {
-                                        log.error("Saving obs");
-                                        encounter.setObs(obsSet);
-                                    } else {
-                                        //Void the created encounter
-                                        Context.getEncounterService().voidEncounter(encounter, "Created Empty encounter");
-                                        throw new Exception("Empty encounter with no observations");
-                                    }
-                                    encounter.setVisit(visit);
-                                    Context.getEncounterService().saveEncounter(encounter);
+
                                 }
 
                                 for (JsonNode jsonNode : groupObsNodes) {
                                     JsonNode parentGropsNode = jsonNode.path("groups");
-                                    log.error("Groups " + parentGropsNode.toString());
                                     for (JsonNode innerGroupArrayNode : parentGropsNode) {
                                         List<JsonObs> singleGroupedJsonObs = mapper.readValue(
                                                 innerGroupArrayNode.toString(),
                                                 mapper.getTypeFactory().constructCollectionType(
                                                         List.class, JsonObs.class));
-                                        log.error("Inner size " + singleGroupedJsonObs.size());
                                         if (singleGroupedJsonObs.size() > 0) {
-                                            String groupId = singleGroupedJsonObs.get(0).getGroup_id();
                                             Concept groupConcept = Context.getConceptService().getConcept(singleGroupedJsonObs.get(0).getGroup_id());
                                             Obs grpObs = new Obs();
                                             if (groupConcept != null) {
@@ -297,50 +274,52 @@ public class JSONParserUtil {
                                                 grpObs.setValueCoded(null);
 
                                                 for (JsonObs obs : singleGroupedJsonObs) {
-                                                    log.error("Group single ob " + obs.getGroup_id() + " " + obs.getConcept_answer());
                                                     if (obs.getConcept_id() != null && StringUtils.isNotEmpty(obs.getGroup_id())) {
                                                         Concept concept = Context.getConceptService().getConcept(obs.getConcept_id());
-                                                        Obs observation = new Obs();
+                                                        Obs observation_group = new Obs();
                                                         if (concept != null) {
-                                                            observation.setConcept(concept);
-                                                            observation.setLocation(location);
-                                                            observation.setPerson(patient.getPerson());
-                                                            observation.setCreator(user);
-                                                            observation.setDateCreated(new Date());
-                                                            observation.setEncounter(encounter);
+                                                            observation_group.setConcept(concept);
+                                                            observation_group.setLocation(location);
+                                                            observation_group.setPerson(patient.getPerson());
+                                                            observation_group.setCreator(user);
+                                                            observation_group.setDateCreated(new Date());
+                                                            observation_group.setEncounter(encounter);
 
                                                             if (StringUtils.isNotEmpty(obs.getDatetime())) {
-                                                                observation.setObsDatetime(formatter.parse(obs.getDatetime()));
+                                                                observation_group.setObsDatetime(formatter.parse(obs.getDatetime()));
                                                             } else {
-                                                                observation.setObsDatetime(date);
+                                                                observation_group.setObsDatetime(date);
                                                             }
                                                             if (StringUtils.isNotEmpty(obs.getComment())) {
-                                                                observation.setComment(obs.getComment());
+                                                                observation_group.setComment(obs.getComment());
                                                             }
                                                             if (obs.getType().equals("valueText")) {
-                                                                observation.setValueText(obs.getConcept_answer());
+                                                                observation_group.setValueText(obs.getConcept_answer());
                                                             } else if (obs.getType().equals("valueNumeric")) {
-                                                                observation.setValueNumeric(Double.valueOf(obs.getConcept_answer()));
+                                                                observation_group.setValueNumeric(Double.valueOf(obs.getConcept_answer()));
                                                             } else if (obs.getType().equals("valueCoded")) {
                                                                 Concept value = Context.getConceptService().getConcept(obs.getConcept_answer());
-                                                                observation.setValueCoded(value);
+                                                                observation_group.setValueCoded(value);
                                                             } else if (obs.getType().equals("valueDatetime")) {
-                                                                observation.setValueDatetime(formatter.parse(obs.getConcept_answer()));
+                                                                observation_group.setValueDatetime(formatter.parse(obs.getConcept_answer()));
                                                             } else if (obs.getType().equals("valueDate")) {
-                                                                observation.setValueDatetime(dateOnly.parse(obs.getConcept_answer()));
+                                                                observation_group.setValueDatetime(dateOnly.parse(obs.getConcept_answer()));
                                                             }
 
                                                             if (StringUtils.isNotEmpty(obs.getGroup_id())) {
-                                                                grpObs.addGroupMember(observation);
+                                                                grpObs.addGroupMember(observation_group);
                                                             }
                                                         }
                                                     }
                                                 }
                                             }
-                                            obsSet.add(grpObs);
+                                            obsSet_group.add(grpObs);
                                         }
                                     }
                                 }
+                                combined_set.addAll(obsSet_single);
+                                combined_set.addAll(obsSet_group);
+
                                 Visit visit = new Visit();
                                 visit.setStartDatetime(formatter.parse(encounterDateNode.getTextValue()));
                                 visit.setPatient(patient);
@@ -350,17 +329,10 @@ public class JSONParserUtil {
                                 if (visitType != null) {
                                     visit.setVisitType(visitType);
                                 }
-                                if (obsSet.size() > 0) {
-                                    log.error("Saving obs");
-                                    encounter.setObs(obsSet);
-                                    encounter.setVisit(visit);
-                                    Context.getEncounterService().saveEncounter(encounter);
-                                } else {
-                                    //Void the created encounter
-                                    Context.getEncounterService().voidEncounter(encounter, "Created Empty encounter");
-                                    throw new Exception("Empty encounter with no observations");
-                                }
 
+                                if (combined_set.size() > 0) {
+                                    encounter.setObs(combined_set);
+                                }
                                 encounter.setVisit(visit);
                                 Context.getEncounterService().saveEncounter(encounter);
                             } else if (patient == null) {
