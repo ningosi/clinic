@@ -11,6 +11,27 @@
           formDisplayStyle="Standard"
           formLabel="Discontinue Patient">
 
+    <ifMode mode="ENTER">
+        <includeIf velocityTest="$fn.allEncounters('bf3f3108-f87c-11e7-913d-5f679b8fdacb').size() == 0">
+            <script>
+                jq(function () {
+                alert('This Patient has no initial , you will now be forwarded to the patient dashboard to fill initial form first');
+
+                var queryParameters = {}, queryString = location.search.substring(1),
+                re = /([^&amp;=]+)=([^&amp;]*)/g, m;
+
+                // Creates a map with the query string parameters
+                while (m = re.exec(queryString)) {
+                queryParameters[decodeURIComponent(m[1])] = decodeURIComponent(m[2]);
+                }
+                location.href = window.location.protocol + "//" + window.location.host +
+                '/' + OPENMRS_CONTEXT_PATH + '/coreapps/clinicianfacing/patient.page?patientId='
+                + queryParameters['patientId'];
+                });
+            </script>
+        </includeIf>
+    </ifMode>
+
     <div class="headers" style="text-align: center;">
         <h3 style="background:  #00b4ef; padding: 10px; color: #fff;">Discontinue Patient From this Facility</h3>
     </div>
