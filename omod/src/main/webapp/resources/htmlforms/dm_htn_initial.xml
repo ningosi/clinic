@@ -2626,7 +2626,7 @@
                                        <obs conceptId="1282" answerConceptId="72806AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" id="Captopril" answerLabel="Captopril" style="checkbox" class="align-checkbox-input"/>
                                     </td>
                                     <td>
-                                       <obs conceptId="1443AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answers="25,50" answerLabels="25 mg,50 mg" style="dropdown"/>
+                                       <obs conceptId="1443AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answers="5,25,50" answerLabels="5 mg,25 mg,50 mg" style="dropdown"/>
                                     </td>
                                     <td>
                                        <obs conceptId="160855AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptIds="160862AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,160858AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,160866AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabels="OD,BD,TDS" style="dropdown" />
@@ -2980,7 +2980,7 @@
                                        <obs conceptId="1282" answerConceptId="77696AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" id="HydrochlorothiazideHCTZ" answerLabel="Hydrochlorothia zide (HCTZ)" style="checkbox" class="align-checkbox-input"/>
                                     </td>
                                     <td>
-                                       <obs conceptId="1443AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answers="25,50" answerLabels="25 mg,50 mg" style="dropdown"/>
+                                       <obs conceptId="1443AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answers="12.5,25,50" answerLabels="12.5 mg,25 mg,50 mg" style="dropdown"/>
                                     </td>
                                     <td>
                                        <obs conceptId="160855AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptIds="160862AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,160858AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,160866AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabels="OD,BD,TDS" style="dropdown" />
@@ -3321,7 +3321,7 @@
                      </tr>
                      <tr>
                         <td>
-                           <obs conceptId="165122" id="transfer_to_other_health_center_specify" answerConceptId="1285" answerLabel="Transfer care to Health center, specify" style="checkbox" class="align-checkbox-input"/>
+                           <obs conceptId="165122" id="transfer_to_other_health_center_specify" answerConceptId="1285" answerLabel="Transfer care to Health Facility, specify" style="checkbox" class="align-checkbox-input"/>
                            <obs conceptId="159495" id="transfer_to_other_health_center" />
                         </td>
                         <td>
