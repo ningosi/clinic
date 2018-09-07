@@ -70,7 +70,7 @@ public class JSONParserUtil {
             if (file.canWrite()) {
                 out = new PrintWriter(new BufferedWriter(new FileWriter(file, true)));
                 out.println(exception);
-            }else{
+            } else {
                 log.error("Cant write to file");
             }
         } catch (IOException e) {
@@ -332,9 +332,10 @@ public class JSONParserUtil {
 
                                 if (combined_set.size() > 0) {
                                     encounter.setObs(combined_set);
+                                    encounter.setVisit(visit);
+                                    Context.getEncounterService().saveEncounter(encounter);
                                 }
-                                encounter.setVisit(visit);
-                                Context.getEncounterService().saveEncounter(encounter);
+
                             } else if (patient == null) {
                                 throw new NullPointerException("Patient object is null");
                             } else if (location == null) {
