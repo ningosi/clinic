@@ -165,5 +165,28 @@
         </insert>
     </changeSet>
 
+    <changeSet id="aihd-201809101340" author="ningosi" dbms="mysql">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                SELECT COUNT(*) FROM scheduler_task_config
+                WHERE schedulable_class = 'org.openmrs.module.aihdconfigs.tasks.CorrectLocationsForIdentifiersTask'
+                And name = 'Correct location'
+            </sqlCheck>
+        </preConditions>
+        <comment>Correcting the identifiers for the locations</comment>
+        <insert tableName="scheduler_task_config">
+            <column name="name" value="Correct location" />
+            <column name="description" value="Map the correct locations to the identifiers" />
+            <column name="schedulable_class" value="org.openmrs.module.aihdconfigs.tasks.CorrectLocationsForIdentifiersTask" />
+            <column name="start_time_pattern" value="MM/dd/yyyy HH:mm:ss" />
+            <column name="start_time" valueDate="2018-01-20T23:59:59" />
+            <column name="repeat_interval" value="10" />
+            <column name="start_on_startup" value="1" />
+            <column name="date_created" valueDate="CURRENT_TIMESTAMP" />
+            <column name="created_by" value="1" />
+            <column name="uuid" value="effa3bee-b4e7-11e8-8a1c-17f7d04d0181" />
+        </insert>
+    </changeSet>
+
 
 </databaseChangeLog>
