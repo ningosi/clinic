@@ -56,7 +56,7 @@ public class FormatAIHDNumbersTask extends AbstractTask {
         AdministrationService as = Context.getAdministrationService();
         PatientIdentifierType pit = patientService.getPatientIdentifierTypeByUuid("b9ba3418-7108-450c-bcff-7bc1ed5c42d1");
         List<List<Object>> patientIds_withIds = as.executeSQL("SELECT patient_id FROM patient_identifier WHERE identifier_type IN (SELECT patient_identifier_type_id FROM patient_identifier_type WHERE uuid = 'b9ba3418-7108-450c-bcff-7bc1ed5c42d1')", true);
-        List<List<Object>> patientIds_withouIds = as.executeSQL("SELECT patient_id FROM patient_identifier WHERE patient_id NOT IN (SELECT patient_id FROM patient_identifier p INNER JOIN patient_identifier_type pt ON (p.identifier_type = pt.patient_identifier_type_id AND pt.uuid = 'b9ba3418-7108-450c-bcff-7bc1ed5c42d1'))", true);
+        List<List<Object>> patientIds_withouIds = as.executeSQL("SELECT patient_id FROM patient WHERE patient_id NOT IN(select patient_id from patient_identifier where identifier_type=4)", true);
         if(patientIds_withIds.size() > 0){
             String prefix = "";
             String suffix = "";
@@ -85,6 +85,7 @@ public class FormatAIHDNumbersTask extends AbstractTask {
                 PersonAttribute personAttribute = p.getAttribute(attributeType);
                 if(personAttribute != null && StringUtils.isNotEmpty(personAttribute.getValue())){
                     Location location = Context.getLocationService().getLocation(personAttribute.getValue().replace("_", " "));
+
                       if(location != null) {
                           Set<LocationAttribute> attribute = new HashSet<LocationAttribute>(location.getAttributes());
                           if(attribute.size() > 0){
@@ -106,6 +107,7 @@ public class FormatAIHDNumbersTask extends AbstractTask {
 
                                       //
                                       p.addIdentifier(aihdId);
+                                      break;
 
                                   }
                               }

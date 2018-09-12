@@ -349,7 +349,7 @@ function validateSecurityInput(){
         <div class="row">
             <div class="col-md-4">
                 <div class="row">
-                    <button type="button" class="btn btn-success">Our Patiners</button>
+                    <button type="button" class="btn btn-success">Our Partners</button>
                 </div>
                 <div class="row" id="malteser-logo">
                   <img src="${ui.resourceLink("aihdconfigs", "svg/malteser_logo.svg")}" height="95px" />

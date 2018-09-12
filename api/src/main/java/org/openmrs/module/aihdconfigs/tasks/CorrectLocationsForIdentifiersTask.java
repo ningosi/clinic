@@ -14,12 +14,15 @@ import org.openmrs.api.AdministrationService;
 import org.openmrs.api.PatientService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.aihdconfigs.metadata.PersonAttributeTypes;
+import org.openmrs.module.aihdconfigs.utils.JSONParserUtil;
 import org.openmrs.module.metadatadeploy.MetadataUtils;
 import org.openmrs.scheduler.tasks.AbstractTask;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class CorrectLocationsForIdentifiersTask extends AbstractTask {
 
@@ -51,26 +54,29 @@ public class CorrectLocationsForIdentifiersTask extends AbstractTask {
         PatientIdentifierType pit = patientService.getPatientIdentifierTypeByUuid("b9ba3418-7108-450c-bcff-7bc1ed5c42d1");
         List<List<Object>> patientIds_withIds = as.executeSQL("SELECT patient_id FROM patient_identifier WHERE identifier_type IN (SELECT patient_identifier_type_id FROM patient_identifier_type WHERE uuid = 'b9ba3418-7108-450c-bcff-7bc1ed5c42d1')", true);
         if(patientIds_withIds.size() > 0){
+            String mfl = "";
+            Location wantedLocation = null;
             for (List<Object> row : patientIds_withIds) {
                 Patient p = patientService.getPatient((Integer) row.get(0));
                 PatientIdentifier identifiers= p.getPatientIdentifier(pit);
                 if(identifiers != null && StringUtils.isNotEmpty(identifiers.getIdentifier())){
                     String value =identifiers.getIdentifier();
-                    if(value.contains("-")){
-                        String mfl = value.split("-")[0];
+                    if(value.contains("-") && value.length() > 10){
+                        mfl = value.split("-")[0];
+                        //now find location that has the same mfl code as mfl
                         for(Location location:allLocations) {
-                            List<LocationAttribute> allAttributesPerLocation = (List<LocationAttribute>) location.getActiveAttributes();
-                            if(allAttributesPerLocation.size() > 0) {
-                                LocationAttribute locationAttribute = allAttributesPerLocation.get(0);
-
-                                    if(locationAttribute != null && identifiers.getLocation() != locationAttribute.getLocation() && locationAttribute.getValue().toString().equals(mfl)){
-                                        identifiers.setLocation(locationAttribute.getLocation());
-                                        //System.out.println("The location found for identifier is ::::"+identifiers.getLocation().getLocationId()+" And attribute value is :::"+locationAttribute.getValue());
+                            Set<LocationAttribute> allAttributes = new HashSet<LocationAttribute>(location.getAttributes());
+                            for(LocationAttribute locationAttribute: allAttributes){
+                                if(locationAttribute.getValue().toString().equals(mfl)){
+                                    wantedLocation = location;
+                                    if(identifiers.getLocation() != wantedLocation) {
+                                        identifiers.setLocation(wantedLocation);
                                         break;
                                     }
-
+                                }
                             }
                         }
+
                     }
                 }
             }
