@@ -2639,7 +2639,7 @@
                                        <obs conceptId="1282" answerConceptId="75633" id="Enalapril" answerLabel="Enalapril" style="checkbox" class="align-checkbox-input"/>
                                     </td>
                                     <td>
-                                       <obs conceptId="1443AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answers="10,20" answerLabels="10 mg,20 mg" style="dropdown"/>
+                                       <obs conceptId="1443AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answers="5,10,20" answerLabels="5 mg,10 mg,20 mg" style="dropdown"/>
                                     </td>
                                     <td>
                                        <obs conceptId="160855AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptIds="160862AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,160858AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,160866AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabels="OD,BD,TDS" style="dropdown" />

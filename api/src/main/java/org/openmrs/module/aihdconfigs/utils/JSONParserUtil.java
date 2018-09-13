@@ -336,7 +336,10 @@ public class JSONParserUtil {
                                     Context.getEncounterService().saveEncounter(encounter);
                                 }
 
-                            } else if (patient == null) {
+                            } else if (provider.size() == 0) {
+                                throw new Exception("The user is NOT a provider. Only providers can fill forms");
+                            }
+                            else if (patient == null) {
                                 throw new NullPointerException("Patient object is null");
                             } else if (location == null) {
                                 throw new NullPointerException("Location object is null");
