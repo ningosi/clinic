@@ -31,7 +31,13 @@ public class Roles {
                     Privileges.APP_COREAPPS_PATIENT_DASHBOARD,
                     Privileges.APP_COREAPPS_PATIENT_VISITS,
                     Privileges.XFORM_GET_FORMS,
-                    Privileges.APP_REGISTRATION_REGISTER_PATIENT
+                    Privileges.APP_REGISTRATION_REGISTER_PATIENT,
+                    Privileges.PRV_GET_VISITS,
+                    Privileges.PRV_ADD_PATIENT,
+                    Privileges.PRV_EDIT_PATIENT,
+                    Privileges.PRV_GET_VISITS_TYPES,
+                    Privileges.PRV_GET_VISITS_ATTRIBUTE_TYPES,
+                    Privileges.PRV_GET_PEOPLE
 
             );
         }

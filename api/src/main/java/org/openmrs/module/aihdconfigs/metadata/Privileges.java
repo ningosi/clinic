@@ -173,4 +173,88 @@ public class Privileges {
         }
     };
 
+    public static PrivilegeDescriptor PRV_GET_VISITS = new PrivilegeDescriptor() {
+        public String uuid() {
+            return "d1d08a58-b82d-11e8-b910-4f7195241cdc";
+        }
+
+        public String privilege() {
+            return PrivilegeConstants.GET_VISITS;
+        }
+
+        public String description() {
+            return "Get visits";
+        }
+    };
+
+    public static PrivilegeDescriptor PRV_ADD_PATIENT = new PrivilegeDescriptor() {
+        public String uuid() {
+            return "0c00b28e-b82e-11e8-9a46-9bf22adaef4f";
+        }
+
+        public String privilege() {
+            return PrivilegeConstants.ADD_PATIENTS;
+        }
+
+        public String description() {
+            return "Add patients";
+        }
+    };
+
+    public static PrivilegeDescriptor PRV_EDIT_PATIENT = new PrivilegeDescriptor() {
+        public String uuid() {
+            return "0b4588e6-b82f-11e8-94d4-230485181b50";
+        }
+
+        public String privilege() {
+            return PrivilegeConstants.EDIT_PATIENTS;
+        }
+
+        public String description() {
+            return "Get patients";
+        }
+    };
+
+    public static PrivilegeDescriptor PRV_GET_VISITS_TYPES = new PrivilegeDescriptor() {
+        public String uuid() {
+            return "f1abe64a-b82f-11e8-9e00-3331ff9e9bc9";
+        }
+
+        public String privilege() {
+            return PrivilegeConstants.GET_VISIT_TYPES;
+        }
+
+        public String description() {
+            return "Get visits types";
+        }
+    };
+
+    public static PrivilegeDescriptor PRV_GET_VISITS_ATTRIBUTE_TYPES = new PrivilegeDescriptor() {
+        public String uuid() {
+            return "d562cf24-b831-11e8-9af5-63f2106372ad";
+        }
+
+        public String privilege() {
+            return PrivilegeConstants.GET_VISIT_ATTRIBUTE_TYPES;
+        }
+
+        public String description() {
+            return "Get visits attribute types";
+        }
+    };
+
+    public static PrivilegeDescriptor PRV_GET_PEOPLE = new PrivilegeDescriptor() {
+        public String uuid() {
+            return "1e9fc76c-b834-11e8-8d2f-fffcb9830ac6";
+        }
+
+        public String privilege() {
+            return "Get People";
+        }
+
+        public String description() {
+            return "Get people";
+        }
+    };
+
 }
