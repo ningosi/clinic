@@ -3,6 +3,8 @@ package org.openmrs.module.aihdconfigs.deploy;
 import org.openmrs.module.aihdconfigs.metadata.EncounterTypes;
 import org.openmrs.module.aihdconfigs.metadata.PatientIdentifierTypes;
 import org.openmrs.module.aihdconfigs.metadata.PersonAttributeTypes;
+import org.openmrs.module.aihdconfigs.metadata.Privileges;
+import org.openmrs.module.aihdconfigs.metadata.Roles;
 import org.openmrs.module.metadatadeploy.bundle.AbstractMetadataBundle;
 import org.springframework.stereotype.Component;
 
@@ -49,7 +51,12 @@ public class CommonMetadataBundle extends AbstractMetadataBundle {
         //installing programs metadata
         log.info("Installing Programs");
 
-        //install Locations
+        //installing privileges
+        install(Privileges.APP_AIHDREPORTS_PRV);
+
+        //install roles
+        log.info("Installing roles");
+        install(Roles.CLINICIANS);
 
     }
 }
