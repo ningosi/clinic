@@ -37,7 +37,14 @@ public class Roles {
                     Privileges.PRV_EDIT_PATIENT,
                     Privileges.PRV_GET_VISITS_TYPES,
                     Privileges.PRV_GET_VISITS_ATTRIBUTE_TYPES,
-                    Privileges.PRV_GET_PEOPLE
+                    Privileges.PRV_GET_PEOPLE,
+                    Privileges.PRV_GET_ENCOUNTERS,
+                    Privileges.PRV_GET_PROVIDERS,
+                    Privileges.PRV_GET_CONCEPT_SOURCES,
+                    Privileges.PRV_GET_VISITS_PATIENT_DASHBOARD,
+                    Privileges.PRV_ADD_VISITS,
+                    Privileges.PRV_ACTIVE_VISITS,
+                    Privileges.PRV_END_VISITS
 
             );
         }

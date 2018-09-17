@@ -257,4 +257,102 @@ public class Privileges {
         }
     };
 
+    public static PrivilegeDescriptor PRV_GET_ENCOUNTERS = new PrivilegeDescriptor() {
+        public String uuid() {
+            return "5ab5f284-ba60-11e8-ac46-7b40c60f0c81";
+        }
+
+        public String privilege() {
+            return PrivilegeConstants.GET_ENCOUNTERS;
+        }
+
+        public String description() {
+            return "Get encounters";
+        }
+    };
+
+    public static PrivilegeDescriptor PRV_GET_PROVIDERS = new PrivilegeDescriptor() {
+        public String uuid() {
+            return "fe762024-ba60-11e8-b17b-27614e4572f9";
+        }
+
+        public String privilege() {
+            return PrivilegeConstants.GET_PROVIDERS;
+        }
+
+        public String description() {
+            return "Get Providers";
+        }
+    };
+
+    public static PrivilegeDescriptor PRV_GET_CONCEPT_SOURCES = new PrivilegeDescriptor() {
+        public String uuid() {
+            return "342d9b4a-ba64-11e8-bd7b-6f82e74bc3a2";
+        }
+
+        public String privilege() {
+            return PrivilegeConstants.GET_CONCEPT_SOURCES;
+        }
+
+        public String description() {
+            return "Get Concept Sources";
+        }
+    };
+
+    public static PrivilegeDescriptor PRV_GET_VISITS_PATIENT_DASHBOARD = new PrivilegeDescriptor() {
+        public String uuid() {
+            return "c7e1f8ac-ba66-11e8-b596-5bd7e07f811a";
+        }
+
+        public String privilege() {
+            return "Patient Dashboard - View Visits Section";
+        }
+
+        public String description() {
+            return "Patient Dashboard - View Visits Section";
+        }
+    };
+
+    public static PrivilegeDescriptor PRV_ADD_VISITS = new PrivilegeDescriptor() {
+        public String uuid() {
+            return "1cdf0fca-ba67-11e8-96ee-63f8d3660e6b";
+        }
+
+        public String privilege() {
+            return PrivilegeConstants.ADD_VISITS;
+        }
+
+        public String description() {
+            return "Add visits";
+        }
+    };
+
+    public static PrivilegeDescriptor PRV_ACTIVE_VISITS = new PrivilegeDescriptor() {
+        public String uuid() {
+            return "5fabac82-ba67-11e8-bed2-1ff2b63811ea";
+        }
+
+        public String privilege() {
+            return "App: coreapps.activeVisits";
+        }
+
+        public String description() {
+            return "Allow access of the active visit app";
+        }
+    };
+
+    public static PrivilegeDescriptor PRV_END_VISITS = new PrivilegeDescriptor() {
+        public String uuid() {
+            return "c0223f90-ba67-11e8-9adc-2ba982dcf931";
+        }
+
+        public String privilege() {
+            return "Edit Visits";
+        }
+
+        public String description() {
+            return "Allow users to edit visits";
+        }
+    };
+
 }
