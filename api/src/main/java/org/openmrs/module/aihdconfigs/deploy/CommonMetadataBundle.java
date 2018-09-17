@@ -1,5 +1,6 @@
 package org.openmrs.module.aihdconfigs.deploy;
 
+import org.openmrs.Role;
 import org.openmrs.module.aihdconfigs.metadata.EncounterTypes;
 import org.openmrs.module.aihdconfigs.metadata.PatientIdentifierTypes;
 import org.openmrs.module.aihdconfigs.metadata.PersonAttributeTypes;
@@ -57,6 +58,7 @@ public class CommonMetadataBundle extends AbstractMetadataBundle {
         //install roles
         log.info("Installing roles");
         install(Roles.CLINICIANS);
+        install(Roles.SYSTEM_ADMIN);
 
     }
 }

@@ -137,7 +137,7 @@ public class Privileges {
         }
 
         public String privilege() {
-            return "App: emr.systemAdministration";
+            return "App: coreapps.systemAdministration";
         }
 
         public String description() {
@@ -352,6 +352,104 @@ public class Privileges {
 
         public String description() {
             return "Allow users to edit visits";
+        }
+    };
+
+    public static PrivilegeDescriptor PRV_LOCATION_ATTRIBUTE_TYPES = new PrivilegeDescriptor() {
+        public String uuid() {
+            return "8dfcbe3c-ba71-11e8-acc0-9b539c687351";
+        }
+
+        public String privilege() {
+            return PrivilegeConstants.GET_LOCATION_ATTRIBUTE_TYPES;
+        }
+
+        public String description() {
+            return "Get Location Attribute Types";
+        }
+    };
+
+    public static PrivilegeDescriptor PRV_DATA_MANAGEMENT = new PrivilegeDescriptor() {
+        public String uuid() {
+            return "73350ecc-ba73-11e8-911f-674916180ff9";
+        }
+
+        public String privilege() {
+            return "App: coreapps.dataManagement";
+        }
+
+        public String description() {
+            return "Data management";
+        }
+    };
+
+    public static PrivilegeDescriptor PRV_CONFIGURE_METADATA = new PrivilegeDescriptor() {
+        public String uuid() {
+            return "cd16f158-ba73-11e8-8b5e-8f504c684d2d";
+        }
+
+        public String privilege() {
+            return "App: adminui.configuremetadata";
+        }
+
+        public String description() {
+            return "Configure Metadata";
+        }
+    };
+
+    public static PrivilegeDescriptor PRV_MANAGE_APPS = new PrivilegeDescriptor() {
+        public String uuid() {
+            return "2d11af76-ba74-11e8-820a-2f383c045c9f";
+        }
+
+        public String privilege() {
+            return "App: referenceapplication.manageApps";
+        }
+
+        public String description() {
+            return "Manage apps";
+        }
+    };
+
+    public static PrivilegeDescriptor PRV_ADD_USERS = new PrivilegeDescriptor() {
+        public String uuid() {
+            return "9efa3820-ba7d-11e8-b2fc-d3eb1fac9162";
+        }
+
+        public String privilege() {
+            return PrivilegeConstants.ADD_USERS;
+        }
+
+        public String description() {
+            return "Add users";
+        }
+    };
+
+    public static PrivilegeDescriptor PRV_PROVIDER_MANAGEMENT_API = new PrivilegeDescriptor() {
+        public String uuid() {
+            return "4a5039e0-ba7e-11e8-bbd7-9704c924ed21";
+        }
+
+        public String privilege() {
+            return "Provider Management API";
+        }
+
+        public String description() {
+            return "Provider Management";
+        }
+    };
+
+    public static PrivilegeDescriptor PRV_PROVIDER_MANAGEMENT_API_READ_ONLY = new PrivilegeDescriptor() {
+        public String uuid() {
+            return "7f077464-ba7e-11e8-9a4c-6f12c61f841c";
+        }
+
+        public String privilege() {
+            return "Provider Management API - Read-only";
+        }
+
+        public String description() {
+            return "Provider Management Read only";
         }
     };
 
