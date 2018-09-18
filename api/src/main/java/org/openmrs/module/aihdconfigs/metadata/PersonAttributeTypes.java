@@ -267,4 +267,26 @@ public class PersonAttributeTypes {
             return 0;
         }
     };
+
+    public static PersonAttributeTypeDescriptor USER_LANGUAGE= new PersonAttributeTypeDescriptor() {
+        @Override
+        public String uuid() {
+            return "4451b846-bb39-11e8-a8f6-fbb2dce97ea8";
+        }
+
+        @Override
+        public String name() {
+            return "Communication Language";
+        }
+
+        @Override
+        public String description() {
+            return "The language that will be used to sent user reminders";
+        }
+
+        @Override
+        public double sortWeight() {
+            return 0;
+        }
+    };
 }
