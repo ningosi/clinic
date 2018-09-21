@@ -168,7 +168,7 @@
         var display = '';
         numericValues('weight')
         numericValues('height')
-        validateWeightAndHeight();
+        //validateWeightAndHeight();
         var weightKg = parseFloat(getValue('weight.value'));
         var heightM = parseFloat(getValue('height.value')) / 100;
         if (!isNaN(weightKg) &amp;&amp; !isNaN(heightM))  {
