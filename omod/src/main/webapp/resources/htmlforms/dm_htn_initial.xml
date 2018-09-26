@@ -3130,7 +3130,7 @@
                                        <obs id="insulin_70_30" conceptId="1443AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" />
                                     </td>
                                     <td>
-                                       <obs id="insulin_70_30_frequency" conceptId="160855AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptIds="160862AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,160858AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,160866AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabels="OD,BD,TDS" style="dropdown" />
+                                       <obs id="insulin_70_30_frequency" conceptId="160855AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptIds="160865AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,160864AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabels="AM,PM" style="dropdown" />
                                     </td>
                                  </tr>
                               </obsgroup>
@@ -3143,7 +3143,7 @@
                                        <obs id="soluble_insulin" conceptId="1443AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" />
                                     </td>
                                     <td>
-                                       <obs id="soluble_insulin_frequency" conceptId="160855AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptIds="160862AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,160858AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,160866AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabels="OD,BD,TDS" style="dropdown" />
+                                       <obs id="soluble_insulin_frequency" conceptId="160855AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptIds="160858AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,160866AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabels="BD,TDS" style="dropdown" />
                                     </td>
                                  </tr>
                               </obsgroup>
