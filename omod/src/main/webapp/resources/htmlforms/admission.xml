@@ -75,7 +75,7 @@
             </tr>
             <tr>
                 <td>Admission date</td>
-                <td><encounterDate default="today" disallowMultipleEncountersOnDate="block"/></td>
+                <td><encounterDate default="now" disallowMultipleEncountersOnDate="block"/></td>
             </tr>
             <tr>
                 <td>Admitted by</td>

@@ -1396,7 +1396,7 @@
                   <tr>
                      <td>
                         Date:
-                        <encounterDate default="today" disallowMultipleEncountersOnDate="block"/>
+                        <encounterDate default="now" disallowMultipleEncountersOnDate="block"/>
                      </td>
                      <td colspan="2">
                         <!-- <label>Care giver:</label>
