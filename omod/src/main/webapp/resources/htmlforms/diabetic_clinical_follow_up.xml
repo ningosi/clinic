@@ -1301,7 +1301,7 @@
                   <tr>
                      <td>
                         <label>Start anti-TB:</label>
-                        <obs conceptId="12" answerConceptIds="1065,1066" answerLabels="Yes,No" style="radio" class="align-radio-input"
+                        <obs conceptId="2dbfd315-b5ac-479e-84b1-33f76a7990da" answerConceptIds="1065,1066" answerLabels="Yes,No" style="radio" class="align-radio-input"
                            answerSeparator="" dateLabel="&lt;/td&gt;&lt;td&gt;" />
                      </td>
                   </tr>
