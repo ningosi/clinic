@@ -316,10 +316,9 @@
             var age_55 = 660;
 
             var age = "<lookup expression="fn.patientAgeInMonths()"/>" ;
-            var gender= "<lookup expression="patient.gender"/>";                     
-             
-            jq('#lmpfield :input').prop('disabled', false);
-            if(age &gt; age_55 || gender=='M'){
+            var gender= "<lookup expression="patient.gender"/>";
+
+            if(age &gt; age_55 || gender === 'M'){
               jq('#lmpfield :input').prop('disabled', true);  
              }
         }
@@ -1636,7 +1635,7 @@
                   <tbody>
                      <tr>
                         <td>
-                           <obs conceptId="1427" id="lmpfield"/>
+                           <obs conceptId="1427" id="lmpfield" />
                         </td>
                      </tr>
                   </tbody>

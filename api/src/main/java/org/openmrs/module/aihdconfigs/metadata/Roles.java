@@ -44,8 +44,14 @@ public class Roles {
                     Privileges.PRV_GET_VISITS_PATIENT_DASHBOARD,
                     Privileges.PRV_ADD_VISITS,
                     Privileges.PRV_ACTIVE_VISITS,
-                    Privileges.PRV_END_VISITS,
-                    Privileges.PRV_LOCATION_ATTRIBUTE_TYPES
+                    Privileges.PRV_EDIT_VISITS,
+                    Privileges.PRV_LOCATION_ATTRIBUTE_TYPES,
+                    Privileges.PRV_ATTACHMENT_PAGE,
+                    Privileges.PRV_VISITS_CONFIGURE,
+                    Privileges.PRV_VISITS_DELETE,
+                    Privileges.PRV_VISITS_RETROSPECTIVE,
+                    Privileges.PRV_VISITS_CORE_APPS_CREATE,
+                    Privileges.PRV_VISITS_CORE_APPS_END
 
             );
         }
