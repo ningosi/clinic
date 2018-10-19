@@ -1727,7 +1727,7 @@
                            <obs conceptId="1282" answerConceptId="159459AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="Insulin 70/30 " style="checkbox" class="align-checkbox-input"/>
                         </td>
                         <td>
-                           <obs conceptId="1e2a1995-9460-4208-88d7-5bf0097b06c2"/>
+                           <obs conceptId="1e2a1995-9460-4208-88d7-5bf0097b06c2" />
                         </td>
                      </tr>
                   </obsgroup>
@@ -3125,11 +3125,8 @@
                                     <td width="35%">
                                        <obs conceptId="1282"  answerConceptId="159459AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabel="Insulin 70/30 " style="checkbox" class="align-checkbox-input"/>
                                     </td>
-                                    <td>
-                                       <obs id="insulin_70_30" conceptId="1443AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" />
-                                    </td>
-                                    <td>
-                                       <obs id="insulin_70_30_frequency" conceptId="160855AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptIds="160865AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,160864AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabels="AM,PM" style="dropdown" />
+                                    <td colspan="2">
+                                       <obs id="insulin_70_30" conceptId="1e2a1995-9460-4208-88d7-5bf0097b06c2" />
                                     </td>
                                  </tr>
                               </obsgroup>
