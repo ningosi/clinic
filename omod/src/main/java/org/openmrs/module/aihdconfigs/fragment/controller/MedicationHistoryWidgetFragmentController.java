@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -35,7 +36,7 @@ public class MedicationHistoryWidgetFragmentController {
     public void controller(FragmentModel model, @FragmentParam("patient") PatientDomainWrapper patient,
                            @SpringBean ConfigCalculationManager calculationManager){
 
-        Map<String, List<String>> medication = new HashMap<String, List<String>>();
+        Map<String, Set<String>> medication = new HashMap<String, Set<String>>();
         PatientCalculationService patientCalculationService = Context.getService(PatientCalculationService.class);
         PatientCalculationContext context = patientCalculationService.createCalculationContext();
         context.setNow(new Date());
@@ -71,16 +72,17 @@ public class MedicationHistoryWidgetFragmentController {
         return encounter;
     }
 
-    private Map<String, List<String>> medications(Integer patientId, PatientCalculationContext context){
-        Map<String, List<String>> medicationCategories = new HashMap<String, List<String>>();
-        List<String> groupA_ACEInhibitor = new ArrayList<String>();
-        List<String> groupA_ARB = new ArrayList<String>();
-        List<String> groupB = new ArrayList<String>();
-        List<String> groupC = new ArrayList<String>();
-        List<String> groupD = new ArrayList<String>();
-        List<String> groupZ = new ArrayList<String>();
-        List<String> groupOglas = new ArrayList<String>();
-        List<String> insulin = new ArrayList<String>();
+    private Map<String, Set<String>> medications(Integer patientId, PatientCalculationContext context){
+        Map<String, Set<String>> medicationCategories = new HashMap<String, Set<String>>();
+        Set<String> groupA_ACEInhibitor = new HashSet<String>();
+        Set<String> groupA_ARB = new HashSet<String>();
+        Set<String> groupB = new HashSet<String>();
+        Set<String> groupC = new HashSet<String>();
+        Set<String> groupD = new HashSet<String>();
+        Set<String> groupZ = new HashSet<String>();
+        Set<String> groupOglas = new HashSet<String>();
+        Set<String> insulin = new HashSet<String>();
+
 
         Encounter encounter = medicationEncounter(patientId, context);
         if(encounter != null){
@@ -107,6 +109,7 @@ public class MedicationHistoryWidgetFragmentController {
                     else if(obs.getValueCoded().equals(Dictionary.getConcept(Dictionary.other_ace))) {
                         groupA_ACEInhibitor.add(obs.getValueCoded().getName().getName());
                     }
+
                     else if(obs.getValueCoded().equals(Dictionary.getConcept(Dictionary.Candesartan))) {
                         groupA_ARB.add(obs.getValueCoded().getName().getName());
                     }

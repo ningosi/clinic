@@ -5,7 +5,7 @@
 	</div>
 
 	<div class="info-body">
-
+<%if(medication){%>
     <div id="flag-fragment-dashboard-widget">
         <%if(date){%>
             <table>
@@ -17,7 +17,7 @@
                     <th>Formulation</th>
                 </tr>
                 <% medication.each { key, value -> %>
-                    <% if(value.size > 0) {%>
+                    <% if(value) {%>
                         <tr>
                             <td>${key}</td>
                             <td>
@@ -35,6 +35,7 @@
         <p>None</p>
         <%}%>
     </div>
+<%}%>
 
 	</div>
 
