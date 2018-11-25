@@ -297,6 +297,44 @@
 
         }
 
+        function flagWaistRatio(waistRatio) {
+
+            var gender= "<lookup expression="patient.gender"/>";
+            var maxMaleRatio = 0.9;
+            var maxFemaleRatio = 0.85;
+
+            jq('#hip_waist_ratio').last().removeClass("flagRed");
+
+            if(gender=='M' &amp;&amp; waistRatio &gt; maxMaleRatio){
+                jq('#hip_waist_ratio').last().addClass("flagRed");
+                return;
+            }
+
+            if(gender=='F' &amp;&amp; waistRatio &gt; maxFemaleRatio){
+                jq('#hip_waist_ratio').last().addClass("flagRed");
+                return;
+            }
+        }
+
+        function onHipOrWaistCircChange() {
+            var display = '';
+            var hip_circ = parseFloat(getValue('hip_circ.value'));
+            var wcirc = parseFloat(getValue('wcirc.value'));
+            numericValues('hip_circ');
+            numericValues('wcirc');
+            if (!isNaN(wcirc) &amp;&amp; !isNaN(hip_circ))  {
+            var hipWaist = hip_circ / wcirc;
+                if (isNaN(hipWaist)) {
+                display = '';
+            }
+            else {
+                display = hipWaist.toFixed(2);
+                flagWaistRatio(display);
+            }
+            }
+            jq('#hip_waist_ratio').html(display);
+        }
+
 
 
         jQuery(function() {
@@ -306,6 +344,8 @@
             onWeightOrHeightChange();
             displayRecentBmi();
             fillTreatmentSupportDetails()
+            jq('#wcirc').change(onHipOrWaistCircChange);
+            jq('#hip_circ').change(onHipOrWaistCircChange);
         });
     </script>
     <div class="ai-page-frame" id="followup-form">
