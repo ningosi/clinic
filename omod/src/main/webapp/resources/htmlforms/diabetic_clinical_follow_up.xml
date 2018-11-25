@@ -206,11 +206,11 @@
             if (!isNaN(weightKg) &amp;&amp; !isNaN(heightM))  {
             var bmi = weightKg / (heightM * heightM);
             if (isNaN(bmi) || bmi &lt; 10 || bmi &gt; 50) {
-            display = 'Abnormal value. Were weight and height entered correctly?';
+                display = 'Abnormal value. Were weight and height entered correctly?';
             }
             else {
-            display = bmi.toFixed(2);
-            flagBMI(display,displayDiv);
+                display = bmi.toFixed(2);
+                flagBMI(display,displayDiv);
             }
             }
 
@@ -261,10 +261,34 @@
             jq('#recent-calculated-bmi').html(bmi.toFixed(2));
         }
 
+        function numericValues(id){
+            jq("#"+id).keydown(function (e) {
+            // Allow: backspace, delete, tab, escape, enter and .
+            if (jq.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
+            // Allow: Ctrl/cmd+A
+            (e.keyCode == 65 &amp;&amp; (e.ctrlKey === true || e.metaKey === true)) ||
+            // Allow: Ctrl/cmd+C
+            (e.keyCode == 67 &amp;&amp; (e.ctrlKey === true || e.metaKey === true)) ||
+            // Allow: Ctrl/cmd+X
+            (e.keyCode == 88 &amp;&amp; (e.ctrlKey === true || e.metaKey === true)) ||
+            // Allow: home, end, left, right
+            (e.keyCode &gt; 34 &amp;&amp; e.keyCode &lt; 40)) {
+            // let it happen, don't do anything
+            return;
+            }
+            // Ensure that it is a number and stop the keypress
+            if ((e.shiftKey || (e.keyCode &lt; 48 || e.keyCode &gt; 57)) &amp;&amp; (e.keyCode &lt; 96 || e.keyCode &gt; 105)) {
+            e.preventDefault();
+            }
+            });
+        }
+
+
         jQuery(function() {
             displayTabs();
             getField('weight.value').change(onWeightOrHeightChange);
             getField('height.value').change(onWeightOrHeightChange);
+            onWeightOrHeightChange();
             displayRecentBmi();
         });
     </script>
