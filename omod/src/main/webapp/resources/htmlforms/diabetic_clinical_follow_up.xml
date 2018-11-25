@@ -335,6 +335,84 @@
             jq('#hip_waist_ratio').html(display);
         }
 
+        function isValidPrescription(drug,value){
+            var weight = getValue('weight.value');
+            var max = weight * drug.maxIuByKg;
+            var min = weight * drug.minIuByKg;
+            var nph = drug.name.includes('nph_type_1_');
+            var obese = isObese();
+            var nph = drug.name.includes('nph_type_1_');
+
+            if(nph){
+            var nphGMin = 0.5 * weight;
+            var nphGMax = 1 * weight;
+            if(drug.obese==1 &amp;&amp; obese==true){
+                if(value &gt; max || value &lt; min) {
+                return drug.message;
+                }
+            }else{
+                if(drug.obese==2  &amp;&amp; obese==false){
+                    if(value &gt; max || value &lt; min) {
+                    return drug.message;
+                    }
+                }
+            }
+
+          }
+
+            if(drug.maxIuByKg &gt; 0) {
+                if(value &gt; max || value &lt; min) {
+                    return drug.message;
+                }
+            } else {
+                if(value &lt; min) {
+                    return drug.message;
+                }
+            }
+
+            return 1;
+        }
+        function  invalidDrugPrescription(){
+
+            var requiredFields=medLimitByCategory();
+            var divHtml="";
+
+            var obese = isObese();
+
+            divHtml=divHtml+checkDrug(requiredFields[0] );
+            divHtml=divHtml+checkDrug(requiredFields[1]);
+
+            if(obese==true){
+            divHtml=divHtml+checkDrug(requiredFields[2]);
+            }
+
+            if(obese == false){
+            divHtml=divHtml+checkDrug(requiredFields[3]);
+            }
+            divHtml=divHtml+checkDrug(requiredFields[4]);
+
+            jq('#displayRequiredFields').html(divHtml);
+            if(divHtml){
+            return true;
+            }
+            return false;
+
+        }
+
+        function isObese(){
+            var weightKg = parseFloat(getValue('weight.value'));
+            var heightM = parseFloat(getValue('height.value')) / 100;
+            var bmi = weightKg / (heightM * heightM);
+            var obese = 30.00;
+            if(bmi == obese || bmi &gt; obese) {
+            return true;
+            }
+            return false;
+        }
+
+        function limitedDoseChanges(){
+        jq("#insulin_70_30, #insulin_70_30_frequency, #soluble_insulin, #soluble_insulin_frequency, #nph_type_1, #nph_type_1_frequency, #nph_type_2, #nph_type_2_frequency").change(invalidDrugPrescription);
+        }
 
 
         jQuery(function() {
@@ -346,6 +424,7 @@
             fillTreatmentSupportDetails()
             jq('#wcirc').change(onHipOrWaistCircChange);
             jq('#hip_circ').change(onHipOrWaistCircChange);
+            limitedDoseChanges();
         });
     </script>
     <div class="ai-page-frame" id="followup-form">
