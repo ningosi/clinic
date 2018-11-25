@@ -283,6 +283,21 @@
             });
         }
 
+        function fillTreatmentSupportDetails(){
+
+        var supporter_name ="<lookup expression="personAttributes.get('Treatment Supporter Name')"/>";
+        var supporter_phone_number ="<lookup expression="personAttributes.get('Treatment Supporter Phone Number')"/>";
+        var supporter_other_phone_number ="<lookup expression="personAttributes.get('Other Treatment Supporter Phone Number')"/>";
+        var supporter_alternative_phone_number ="<lookup expression="personAttributes.get('Alternative Treatment Supporter Phone Number')"/>";
+
+            setValue('supporter_name.value',supporter_name);
+            setValue('supporter_phone_number.value',supporter_phone_number);
+            setValue('supporter_other_phone_number.value',supporter_other_phone_number);
+            setValue('supporter_alternative_phone_number.value',supporter_alternative_phone_number);
+
+        }
+
+
 
         jQuery(function() {
             displayTabs();
@@ -290,6 +305,7 @@
             getField('height.value').change(onWeightOrHeightChange);
             onWeightOrHeightChange();
             displayRecentBmi();
+            fillTreatmentSupportDetails()
         });
     </script>
     <div class="ai-page-frame" id="followup-form">
