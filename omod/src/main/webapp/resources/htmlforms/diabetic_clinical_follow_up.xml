@@ -414,6 +414,54 @@
         jq("#insulin_70_30, #insulin_70_30_frequency, #soluble_insulin, #soluble_insulin_frequency, #nph_type_1, #nph_type_1_frequency, #nph_type_2, #nph_type_2_frequency").change(invalidDrugPrescription);
         }
 
+        function displayRecentDiabeticStatus(){
+            var lastObs = "<lookup expression="fn.latestObs(165086).valueCoded"/>";
+
+            var sectionId = 'diabetes_status';
+
+            if(lastObs){
+            lastObs = lastObs.trim().split('#')[1];
+            selectElementByValue(sectionId,lastObs);
+        }
+
+        }
+        function displayRecentHTNStatus(){
+            var lastObs = "<lookup expression="fn.latestObs(165091).valueCoded"/>"
+            var sectionId = 'htn_status';
+            if(lastObs){
+            lastObs = lastObs.trim().split('#')[1];
+            selectElementByValue(sectionId,lastObs);
+            }
+        }
+        function disableGDMFormMale(){
+            var gender= "<lookup expression="patient.gender"/>";
+            var sectionId = 'type_of_diabetes';
+
+            if(gender=='M'){
+            disableElementByValue(sectionId,1449);
+            jq('#pdt :input').prop('disabled', true);
+            }
+
+        }
+
+        function selectElementByValue(sectionId,value){
+            jq('#' + sectionId + ' :input').each(function(){
+            var inputElement = jq(this);
+            if(inputElement.val() == value){
+            inputElement.prop("checked", true);
+            }
+            })
+        }
+
+        function disableElementByValue(sectionId,value){
+            jq('#' + sectionId + ' :input').each(function(){
+            var inputElement = jq(this);
+            if(inputElement.val() == value){
+            inputElement.prop("disabled", true);
+            }
+            })
+        }
+
 
         jQuery(function() {
             displayTabs();
@@ -425,6 +473,10 @@
             jq('#wcirc').change(onHipOrWaistCircChange);
             jq('#hip_circ').change(onHipOrWaistCircChange);
             limitedDoseChanges();
+            displayRecentDiabeticStatus();
+            displayRecentHTNStatus();
+            disableGDMFormMale();
+
         });
     </script>
     <div class="ai-page-frame" id="followup-form">
