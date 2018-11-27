@@ -462,6 +462,41 @@
             })
         }
 
+        function setupDefaultValues(){
+            var diabeticType = "<lookup expression="fn.latestObs(165094).valueCoded"/>";
+            var hypertensionType = "<lookup expression="fn.latestObs(165198).valueCoded"/>";
+            var hivStatus = "<lookup expression="fn.latestObs(138405).valueCoded"/>";
+            var nhifStatus = "<lookup expression="fn.latestObs(1917).valueCoded"/>";
+            var tbScreen = "<lookup expression="fn.latestObs(164800).valueCoded"/>";
+            var tbStatus = "<lookup expression="fn.latestObs(165330).valueCoded"/>";
+
+            if(diabeticType){
+                diabeticType = diabeticType.trim().split('#')[1];
+                selectElementByValue('type_of_diabetes',diabeticType);
+            }
+
+            if(hypertensionType){
+                hypertensionType = hypertensionType.trim().split('#')[1];
+                selectElementByValue('htn_type',hypertensionType);
+            }
+            if(hivStatus){
+                hivStatus = hivStatus.trim().split('#')[1];
+                selectElementByValue('hiv_status',hivStatus);
+            }
+            if(nhifStatus){
+                nhifStatus = nhifStatus.trim().split('#')[1];
+                selectElementByValue('nhif',nhifStatus);
+            }
+            if(tbScreen){
+                tbScreen = tbScreen.trim().split('#')[1];
+                selectElementByValue('screened_for_tb',tbScreen);
+            }
+            if(tbStatus){
+                tbStatus = tbStatus.trim().split('#')[1];
+                selectElementByValue('tb_status',tbStatus);
+            }
+        }
+
 
         jQuery(function() {
             displayTabs();
@@ -476,6 +511,9 @@
             displayRecentDiabeticStatus();
             displayRecentHTNStatus();
             disableGDMFormMale();
+        //setting values for some fields
+            setupDefaultValues();
+
 
         });
     </script>
