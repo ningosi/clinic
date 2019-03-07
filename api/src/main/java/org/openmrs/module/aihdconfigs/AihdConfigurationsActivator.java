@@ -237,6 +237,8 @@ public class AihdConfigurationsActivator implements ModuleActivator {
 		properties.add(new GlobalProperty("application.name", "NCD - Non-Communicable Disease Management"));
 		// disable the appointmentshedulingui which currently has issues
 		properties.add(new GlobalProperty("appointmentschedulingui.started", "false"));
+		//disable the atlas module as we are NOT using it at the moment
+		properties.add(new GlobalProperty("atlas.started", "false"));
 		return properties;
 	}
 
