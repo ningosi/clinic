@@ -232,6 +232,10 @@ public class AihdConfigurationsActivator implements ModuleActivator {
 			primaryIdentifierTypeMapping.setMappedObject(patintId);
 			metadataMappingService.saveMetadataTermMapping(primaryIdentifierTypeMapping);
 		}
+		// set the name of the application
+		properties.add(new GlobalProperty("application.name", "NCD - Non-Communicable Disease Management"));
+		// disable the appointmentshedulingui which currently has issues
+		properties.add(new GlobalProperty("appointmentschedulingui.started", "false"));
 		return properties;
 	}
 
