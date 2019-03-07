@@ -264,7 +264,7 @@ ${ ui.includeFragment("referenceapplication", "infoAndErrorMessages") }
         jQuery("#security_captcha_answer").keypress(function(){
             setTimeout(checkSecurityResponse, 200);
         });
-    }Nov 22, 2018 3:47:10 PM org.apache.catalina.startup.VersionLoggerListener log
+    }
 
 
     function generateRandomNumber(){  
