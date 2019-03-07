@@ -188,7 +188,7 @@
                 float: left;
                 padding: 5px;
                 align:left;
-        }Nov 22, 2018 3:47:10 PM org.apache.catalina.startup.VersionLoggerListener log
+        }
 
 
         #malteser-logo img{
@@ -264,8 +264,22 @@ ${ ui.includeFragment("referenceapplication", "infoAndErrorMessages") }
         jQuery("#security_captcha_answer").keypress(function(){
             setTimeout(checkSecurityResponse, 200);
         });
-    }
 
+    }
+    function termsAndConditions(){
+        var termsAndConditionsAnswer=jQuery("input:checkbox:checked").val();
+        if(termsAndConditionsAnswer==="true"){
+            jQuery('#login-button').removeClass('disabled');
+            jQuery('#login-button').removeAttr('disabled');
+            jQuery("#tnc_notification").text('');
+        }else {
+                jQuery("#tnc_notification").text("You have to accept the T&Cs" );
+        }
+
+    }
+    setInterval(function () {
+        checkSecurityResponse();
+    },200)
 
     function generateRandomNumber(){  
     var operators = [{
@@ -300,16 +314,22 @@ function checkSecurityResponse(){
   var userInputAnswer = parseInt(jQuery('#security_captcha_answer').val());
   var securityAnswer = parseInt(jQuery('#computer_results_hidden').val());
   var sessionLocationVal = jQuery('#sessionLocationInput').val();
+  var termsAndConditionsAnswer=jQuery("input:checkbox:checked").val();
 
-        if(securityAnswer == userInputAnswer){
+
+    if((securityAnswer === userInputAnswer) && (termsAndConditionsAnswer==="true")){
             jQuery('#login-button').removeClass('disabled');
             jQuery('#login-button').removeAttr('disabled');
             jQuery("#captcha_notification").text('');
+            jQuery("#tnc_notification").text('');
         }else{
             jQuery('#login-button').addClass('disabled');
             jQuery('#login-button').attr('disabled','disabled');
-            if(securityAnswer != userInputAnswer){
+            if(securityAnswer !== userInputAnswer){
                jQuery("#captcha_notification").text("You have entered incorrect answer" ); 
+            }
+            else {
+                jQuery("#tnc_notification").text("You have to accept the T&Cs" );
             }
         }
 
@@ -405,7 +425,14 @@ function validateSecurityInput(){
                     <div class="form-group">
                         <label class="col-md-4 control-label"></label>
                         <div class="col-md-8">
-                            <input type="checkbox" name="terms_and_conditions" value="false"> <span><a href="${ui.pageLink("aihdconfigs", "terms")}" target="_blank">I have and understood the terms and conditions</a></span> <br>
+                            <input type="checkbox" id="terms_and_conditions" name="terms_and_conditions" value="true"> <span><a href="${ui.pageLink("aihdconfigs", "terms")}" target="_blank">I have and understood the terms and conditions</a></span> <br>
+                            <span id="tnc_notification" style="color:red; font-size:18;"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label"></label>
+                        <div class="col-md-8">
+                             <span><a href="https://ncdems.on.spiceworks.com/portal/tickets" target="_blank">HelpDesk/Support</a></span> <br>
                         </div>
                     </div>
                     <div class="form-group">
