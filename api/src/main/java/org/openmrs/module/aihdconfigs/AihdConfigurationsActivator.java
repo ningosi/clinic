@@ -103,6 +103,7 @@ public class AihdConfigurationsActivator implements ModuleActivator {
 		appFrameworkService.disableApp("appointmentschedulingui.requestAppointmentApp");
 		appFrameworkService.disableExtension("appointmentschedulingui.tab");
 		appFrameworkService.disableExtension("org.openmrs.module.appointmentschedulingui.firstColumnFragments.patientDashboard.patientAppointments");
+		appFrameworkService.disableExtension("org.openmrs.module.allergyui.patientDashboard.secondColumnFragments");
 
 		// install commonly used metadata
 		installCommonMetadata(deployService);
