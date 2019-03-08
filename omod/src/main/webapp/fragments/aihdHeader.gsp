@@ -97,6 +97,9 @@
     </div>
     <% if (context.authenticated) { %>
     <ul class="user-options" style="padding: 20px;">
+        <li>
+            <i class="icon-question-sign"></i><a href="https://ncdems.on.spiceworks.com/portal/tickets">HelpDesk/Support</a>
+        </li>
         <li class="identifier">
             <i class="icon-user small"></i>
             ${context.authenticatedUser.username ?: context.authenticatedUser.systemId}
