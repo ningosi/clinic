@@ -103,6 +103,7 @@ public class AihdConfigurationsActivator implements ModuleActivator {
 		appFrameworkService.disableApp("appointmentschedulingui.requestAppointmentApp");
 		appFrameworkService.disableExtension("appointmentschedulingui.tab");
 		appFrameworkService.disableExtension("org.openmrs.module.appointmentschedulingui.firstColumnFragments.patientDashboard.patientAppointments");
+		appFrameworkService.disableExtension("org.openmrs.module.allergyui.patientDashboard.secondColumnFragments");
 
 		// install commonly used metadata
 		installCommonMetadata(deployService);
@@ -232,6 +233,12 @@ public class AihdConfigurationsActivator implements ModuleActivator {
 			primaryIdentifierTypeMapping.setMappedObject(patintId);
 			metadataMappingService.saveMetadataTermMapping(primaryIdentifierTypeMapping);
 		}
+		// set the name of the application
+		properties.add(new GlobalProperty("application.name", "NCD - Non-Communicable Disease Management"));
+		// disable the appointmentshedulingui which currently has issues
+		properties.add(new GlobalProperty("appointmentschedulingui.started", "false"));
+		//disable the atlas module as we are NOT using it at the moment
+		properties.add(new GlobalProperty("atlas.started", "false"));
 		return properties;
 	}
 

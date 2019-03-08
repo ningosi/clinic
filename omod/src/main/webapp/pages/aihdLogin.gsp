@@ -430,6 +430,12 @@ function validateSecurityInput(){
                         </div>
                     </div>
                     <div class="form-group">
+                        <label class="col-md-4 control-label"></label>
+                        <div class="col-md-8">
+                             <span><a href="https://ncdems.on.spiceworks.com/portal/tickets" target="_blank">HelpDesk/Support</a></span> <br>
+                        </div>
+                    </div>
+                    <div class="form-group">
                     <div class="col-sm-12 text-right">
                         <a id="cant-login" href="https://ncdems.on.spiceworks.com/portal/tickets">
                             <i class="icon-question-sign small"></i>
