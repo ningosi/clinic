@@ -437,7 +437,7 @@ function validateSecurityInput(){
                     </div>
                     <div class="form-group">
                     <div class="col-sm-12 text-right">
-                        <a id="cant-login" href="javascript:void(0)">
+                        <a id="cant-login" href="https://ncdems.on.spiceworks.com/portal/tickets">
                             <i class="icon-question-sign small"></i>
                             ${ ui.message("referenceapplication.login.cannotLogin") }
                         </a>
