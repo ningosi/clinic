@@ -1,10 +1,10 @@
 package org.openmrs.module.aihdconfigs.messaging;
 
 
-import org.apache.commons.io.IOUtils;
+import com.africastalking.AfricasTalking;
+import com.africastalking.SmsService;
+import com.africastalking.sms.Recipient;
 import org.apache.commons.lang3.StringUtils;
-import org.json.JSONArray;
-import org.json.JSONObject;
 import org.openmrs.Patient;
 import org.openmrs.PersonAttribute;
 import org.openmrs.PersonAttributeType;
@@ -22,11 +22,13 @@ import org.openmrs.util.OpenmrsUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 
@@ -38,32 +40,35 @@ public class SendReminderMessage {
 
     private static String getTokenFromFile() throws IOException {
         File file = new File(OpenmrsUtil.getApplicationDataDirectory() + "/token.txt");
-        if(file.exists() && file.canRead()){
-            byte[] encoded = IOUtils.toByteArray(new FileInputStream(file));
-            return new String(encoded);
+        if (file.exists() && file.canRead()) {
+            BufferedReader reader = new BufferedReader(new FileReader(file));
+            String key = reader.readLine();
+            reader.close();
+            return key;
         }
         return "";
 
     }
+
     public static void buildMessage(String phone, String message) throws IOException {
         String username = "ncd";
         String apiKey = getTokenFromFile();
-        if(StringUtils.isNotEmpty(apiKey)) {
-            AfricasTalkingGateway gateway = new AfricasTalkingGateway(username, apiKey.trim());
+        String from = "NairobiNCD";
+        if (StringUtils.isNotEmpty(apiKey)) {
+            AfricasTalking.initialize(username, apiKey);
+            SmsService sms = AfricasTalking.getService(AfricasTalking.SERVICE_SMS);
 
-        try {
-            JSONArray results = gateway.sendMessage(phone, message);
-            for (int i = 0; i < results.length(); ++i) {
-                JSONObject result = results.getJSONObject(i);
-                System.out.print(result.getString("status") + ","); // status is either "Success" or "error message"
-                System.out.print(result.getString("statusCode") + ",");
-                System.out.print(result.getString("number") + ",");
-                System.out.print(result.getString("messageId") + ",");
-                System.out.println(result.getString("cost"));
+            try {
+                List<Recipient> response = sms.send(message,from, new String[]{phone}, true);
+                for (Recipient recipient : response) {
+                    if(!recipient.status.equals("Success")){
+                        log.error("SMS sending Failure : Number %s status %s",recipient.number,recipient.status);
+                    }
+
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-        } catch (Exception e) {
-            System.out.println("Encountered an error while sending " + e.getMessage());
-        }
         }
 
     }
@@ -90,11 +95,11 @@ public class SendReminderMessage {
         for (Patient patient : results) {
             String name = String.format("%s %s", patient.getGivenName(), patient.getFamilyName());
             PersonAttribute personAttribute = patient.getPerson().getAttribute(attributeType);
-            if(langAttributeType != null) {
+            if (langAttributeType != null) {
                 PersonAttribute language = patient.getPerson().getAttribute(langAttributeType);
                 message = missedAppointMentMesssage((language != null && StringUtils.isNotEmpty(language.getValue()) ? language.getValue() : "kiswahili"), name);
-            }else{
-                 message = missedAppointMentMesssage( "kiswahili", name);
+            } else {
+                message = missedAppointMentMesssage("kiswahili", name);
             }
             if (StringUtils.isNotEmpty(convertPhoneNumber(personAttribute.getValue()))) {
                 buildMessage(convertPhoneNumber(personAttribute.getValue()), message);
@@ -108,7 +113,7 @@ public class SendReminderMessage {
         CalculationResultMap lastReturnDateObss = ConfigCalculations.lastObs(Dictionary.getConcept(Dictionary.RETURN_VISIT_DATE), ConfigCoreUtils.cohort(), context);
         for (Patient patient : Context.getPatientService().getAllPatients()) {
             Date lastScheduledReturnDate = ConfigEmrCalculationUtils.datetimeObsResultForPatient(lastReturnDateObss, patient.getId());
-            if (lastScheduledReturnDate != null && ConfigEmrCalculationUtils.daysSince(lastScheduledReturnDate, context) > 1) {
+            if (lastScheduledReturnDate != null && ConfigEmrCalculationUtils.daysSince(lastScheduledReturnDate, context) > 1 && ConfigEmrCalculationUtils.daysSince(lastScheduledReturnDate, context) < 2) {
                 results.add(patient);
             }
         }
