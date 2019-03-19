@@ -22,6 +22,7 @@ public class CommonMetadataBundle extends AbstractMetadataBundle {
         install(PatientIdentifierTypes.AIHD_PATIENT_NUMBER);
         install(PatientIdentifierTypes.MOBILE_NUMBER);
         install(PatientIdentifierTypes.DOPC_MOPC_NUMBER);
+        install(PatientIdentifierTypes.NATIONAL_ID_NUMBER);
         log.info("Patient IdentifierTypes installed");
 
         // install person attribute types
@@ -39,6 +40,7 @@ public class CommonMetadataBundle extends AbstractMetadataBundle {
         install(PersonAttributeTypes.PATIENT_LOCATION);
         install(PersonAttributeTypes.USER_LOCATION);
         install(PersonAttributeTypes.USER_LANGUAGE);
+        install(PersonAttributeTypes.NATIONAL_ID_NUMBER);
 
         log.info("Person AttributeTypes installed");
 

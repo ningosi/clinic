@@ -63,4 +63,24 @@ public class PatientIdentifierTypes {
             return "Will be determined";
         }
     };
+
+    public static PatientIdentifierTypeDescriptor NATIONAL_ID_NUMBER = new PatientIdentifierTypeDescriptor() {
+        @Override
+        public String name() {
+            return "National Identity Number";
+        }
+
+        @Override
+        public String description() {
+            return "A number that identifies a patient uniquely country wide";
+        }
+
+        public String uuid() {
+            return "d36db9c0-4a23-11e9-8f9d-07b3c55a6386";
+        }
+
+        public String formatDescription() {
+            return "Will be determined";
+        }
+    };
 }

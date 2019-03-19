@@ -61,7 +61,7 @@ public class PersonAttributeTypes {
 
         @Override
         public String description() {
-            return "The telephone number for the person";
+            return "The telephone number for the patient";
         }
 
         @Override
@@ -282,6 +282,28 @@ public class PersonAttributeTypes {
         @Override
         public String description() {
             return "The language that will be used to sent user reminders";
+        }
+
+        @Override
+        public double sortWeight() {
+            return 0;
+        }
+    };
+
+    public static PersonAttributeTypeDescriptor NATIONAL_ID_NUMBER = new PersonAttributeTypeDescriptor() {
+        @Override
+        public String uuid() {
+            return "1b588a3a-4a24-11e9-8984-17ac2c6f7dad";
+        }
+
+        @Override
+        public String name() {
+            return "National ID Number person attribute";
+        }
+
+        @Override
+        public String description() {
+            return "The national ID number";
         }
 
         @Override
