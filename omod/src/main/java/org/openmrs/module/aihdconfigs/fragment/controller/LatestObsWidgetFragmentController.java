@@ -31,7 +31,7 @@ public class LatestObsWidgetFragmentController {
         summary.putAll(weight(patient.getId(), context));
 
         model.addAttribute("obs", summary);
-        model.addAttribute("greenBmi", greenBmi(patient.getId(), context));
+        model.addAttribute("greenBmi", Math.round(greenBmi(patient.getId(), context)* 100.0) / 100.0);
         model.addAttribute("yellowBmi", Math.round(yellowBmi(patient.getId(), context) * 100.0) / 100.0);
         model.addAttribute("redBmi", Math.round(redBmi(patient.getId(), context)* 100.0) / 100.0);
         model.addAttribute("circRatio", Math.round(hipWaistRatio(patient.getId(), context) * 100.0) / 100.0 );
