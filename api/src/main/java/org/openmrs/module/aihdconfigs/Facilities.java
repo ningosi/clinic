@@ -95,12 +95,16 @@ public class Facilities {
 
     }
 
-    public static void removeLocations(List<String> loccations){
+    public static void removeLocations(List<String> locations){
         LocationService service = Context.getLocationService();
-        for(String s: loccations){
+        for(String s: locations){
             Location location = service.getLocation(s);
             if(location != null) {
-                service.purgeLocation(location);
+                location.setRetired(true);
+                location.setRetireReason("Not required");
+                location.setRetiredBy(Context.getAuthenticatedUser());
+                location.setDateRetired(new Date());
+                service.saveLocation(location);
             }
         }
     }
