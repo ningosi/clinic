@@ -105,6 +105,8 @@ public class AihdConfigurationsActivator implements ModuleActivator {
 		appFrameworkService.disableExtension("org.openmrs.module.appointmentschedulingui.firstColumnFragments.patientDashboard.patientAppointments");
 		appFrameworkService.disableExtension("org.openmrs.module.allergyui.patientDashboard.secondColumnFragments");
 
+		//retire unwanted location
+		Facilities.removeLocations(locationToDelete());
 		// install commonly used metadata
 		installCommonMetadata(deployService);
 
@@ -246,7 +248,7 @@ public class AihdConfigurationsActivator implements ModuleActivator {
 	 * get all the locations that need to be removed
 	 */
 	List<String> locationToDelete(){
-		return  Arrays.asList("Bristol park", "Mihang’o community dispensary", "Reliable medical Health Centre", "Well living", "Ruaraka clinic", "kahawa west health centre", "Hope medical (*Clinic Githurai)", "Mathare north health centre", "National youth service HC (Ruaraka)", "Marurui health centre (Dispensary)", "Korogocho health centre", "Kamiti health centre", "St. Johns hospital githurai", "St. Joseph mukasa (Dispensary)", "Kangemi health centre", "Jaralam medical", "Upendo medical clinic", "Lower kabete dispensary", "St. Getrudes githogoro", "Mji wa huruma (Dispensary)", "St. Joseph the worker disp."
+		return  Arrays.asList("Consolata Shrine Disp", "Alice Nursing Home"
 		);
 	}
 		
