@@ -113,7 +113,7 @@ public class SendReminderMessage {
         CalculationResultMap lastReturnDateObss = ConfigCalculations.lastObs(Dictionary.getConcept(Dictionary.RETURN_VISIT_DATE), ConfigCoreUtils.cohort(), context);
         for (Patient patient : Context.getPatientService().getAllPatients()) {
             Date lastScheduledReturnDate = ConfigEmrCalculationUtils.datetimeObsResultForPatient(lastReturnDateObss, patient.getId());
-            if (lastScheduledReturnDate != null && ConfigEmrCalculationUtils.daysSince(lastScheduledReturnDate, context) > 1 && ConfigEmrCalculationUtils.daysSince(lastScheduledReturnDate, context) < 2) {
+            if (lastScheduledReturnDate != null && ConfigEmrCalculationUtils.daysSince(lastScheduledReturnDate, context) == 1 ) {
                 results.add(patient);
             }
         }
