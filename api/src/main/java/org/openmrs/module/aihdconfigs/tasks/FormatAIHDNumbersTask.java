@@ -14,6 +14,7 @@ import org.openmrs.User;
 import org.openmrs.api.AdministrationService;
 import org.openmrs.api.PatientService;
 import org.openmrs.api.context.Context;
+import org.openmrs.module.aihdconfigs.metadata.PatientIdentifierTypes;
 import org.openmrs.module.aihdconfigs.metadata.PersonAttributeTypes;
 import org.openmrs.module.metadatadeploy.MetadataUtils;
 import org.openmrs.scheduler.tasks.AbstractTask;
@@ -55,9 +56,8 @@ public class FormatAIHDNumbersTask extends AbstractTask {
 
     private void formatAihdPatientNumbers(){
         PatientService patientService = Context.getPatientService();
-        Integer sessionLocationId = Context.getUserContext().getLocationId();
         AdministrationService as = Context.getAdministrationService();
-        PatientIdentifierType pit = patientService.getPatientIdentifierTypeByUuid("b9ba3418-7108-450c-bcff-7bc1ed5c42d1");
+        PatientIdentifierType pit_aihd = patientService.getPatientIdentifierTypeByUuid(PatientIdentifierTypes.AIHD_PATIENT_NUMBER.uuid());
         List<List<Object>> patientIds_withIds = as.executeSQL("SELECT patient_id FROM patient_identifier WHERE identifier_type IN (SELECT patient_identifier_type_id FROM patient_identifier_type WHERE uuid = 'b9ba3418-7108-450c-bcff-7bc1ed5c42d1')", true);
         List<List<Object>> patientIds_withouIds = as.executeSQL("SELECT patient_id FROM patient WHERE patient_id NOT IN(select patient_id from patient_identifier where identifier_type=4)", true);
         if(patientIds_withIds.size() > 0){
@@ -65,12 +65,12 @@ public class FormatAIHDNumbersTask extends AbstractTask {
             String suffix = "";
             for (List<Object> row : patientIds_withIds) {
                 Patient p = patientService.getPatient((Integer) row.get(0));
-                PatientIdentifier identifiers= p.getPatientIdentifier(pit);
+                PatientIdentifier identifiers= p.getPatientIdentifier(pit_aihd);
                 if(identifiers != null && identifiers.getLocation() != null) {
                     if(identifiers.getIdentifier().endsWith("-")) {
                         //get that patient and update their identifier
                         prefix = identifiers.getIdentifier().split("-")[0];
-                        suffix = String.valueOf(identifierList_forPatientsWithId(pit, patientService, identifiers, prefix) + 1);
+                        suffix = String.valueOf(identifierList_forPatientsWithId(pit_aihd, patientService, identifiers, prefix) + 1);
                         String finalSuffixes = finalSuffix(suffix);
 
                         identifiers.setIdentifier(prefix+"-"+finalSuffixes);
@@ -78,6 +78,7 @@ public class FormatAIHDNumbersTask extends AbstractTask {
                 }
             }
         }
+        //TO DO: write an option to include patients identifier if the DB is empty
         if(patientIds_withouIds.size() > 0) {
 
             String prefix = "";
@@ -98,11 +99,11 @@ public class FormatAIHDNumbersTask extends AbstractTask {
                                   if(locationAttribute.getAttributeType().equals(locationAttributeType)){
 
                                       prefix = (String) locationAttribute.getValue();
-                                      suffix = String.valueOf(identifierList_forPatientsWithoutId(pit, patientService, prefix) + 1);
+                                      suffix = String.valueOf(identifierList_forPatientsWithoutId(pit_aihd, patientService, prefix) + 1);
                                       String finalSuffixes = finalSuffix(suffix);
                                       UUID uuid = UUID.randomUUID();
                                       PatientIdentifier aihdId = new PatientIdentifier();
-                                      aihdId.setIdentifierType(pit);
+                                      aihdId.setIdentifierType(pit_aihd);
                                       aihdId.setUuid(String.valueOf(uuid));
                                       aihdId.setIdentifier(prefix+"-"+finalSuffixes);
                                       aihdId.setLocation(location);
@@ -133,11 +134,11 @@ public class FormatAIHDNumbersTask extends AbstractTask {
 
 
                                     prefix = (String) locationAttribute.getValue();
-                                    suffix = String.valueOf(identifierList_forPatientsWithoutId(pit, patientService, prefix) + 1);
+                                    suffix = String.valueOf(identifierList_forPatientsWithoutId(pit_aihd, patientService, prefix) + 1);
                                     String finalSuffixes = finalSuffix(suffix);
                                     UUID uuid = UUID.randomUUID();
                                     PatientIdentifier aihdId = new PatientIdentifier();
-                                    aihdId.setIdentifierType(pit);
+                                    aihdId.setIdentifierType(pit_aihd);
                                     aihdId.setUuid(String.valueOf(uuid));
                                     aihdId.setIdentifier(prefix+"-"+finalSuffixes);
                                     aihdId.setLocation(userLocation);
