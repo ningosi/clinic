@@ -78,7 +78,6 @@ public class FormatAIHDNumbersTask extends AbstractTask {
                 }
             }
         }
-        //TO DO: write an option to include patients identifier if the DB is empty
         if(patientIds_withouIds.size() > 0) {
 
             String prefix = "";
@@ -115,7 +114,6 @@ public class FormatAIHDNumbersTask extends AbstractTask {
 
                                       //
                                       p.addIdentifier(aihdId);
-                                      break;
 
                                   }
                               }
@@ -124,25 +122,28 @@ public class FormatAIHDNumbersTask extends AbstractTask {
                 }
 
                 else if (mflCodeForPatient != null && StringUtils.isNotEmpty(mflCodeForPatient.getValue())) {
-                    Location location = (Location) as.executeSQL("SELECT location_id FROM location_attribute WHERE value_reference='"+mflCodeForPatient.getValue()+"'", true);
-                    System.out.println("This is the location >>> "+location.getName());
+                    List<List<Object>> location = as.executeSQL("SELECT location_id FROM location_attribute WHERE value_reference='"+mflCodeForPatient.getValue()+"'", true);
+                    if(location.size() > 0) {
+                        for (List<Object> loc : location) {
+                            Location useLocation = Context.getLocationService().getLocation((Integer) loc.get(0));
+                            if(useLocation != null) {
+                                suffix = String.valueOf(identifierList_forPatientsWithoutId(pit_aihd, patientService, prefix) + 1);
+                                String finalSuffixes = finalSuffix(suffix);
+                                UUID uuid = UUID.randomUUID();
+                                PatientIdentifier aihdId = new PatientIdentifier();
+                                aihdId.setIdentifierType(pit_aihd);
+                                aihdId.setUuid(String.valueOf(uuid));
+                                aihdId.setIdentifier(prefix + "-" + finalSuffixes);
+                                aihdId.setLocation(useLocation);
+                                aihdId.setPreferred(true);
+                                aihdId.setCreator(Context.getAuthenticatedUser());
+                                aihdId.setDateCreated(new Date());
 
-                    prefix = mflCodeForPatient.getValue();
-                                    suffix = String.valueOf(identifierList_forPatientsWithoutId(pit_aihd, patientService, prefix) + 1);
-                                    String finalSuffixes = finalSuffix(suffix);
-                                    UUID uuid = UUID.randomUUID();
-                                    PatientIdentifier aihdId = new PatientIdentifier();
-                                    aihdId.setIdentifierType(pit_aihd);
-                                    aihdId.setUuid(String.valueOf(uuid));
-                                    aihdId.setIdentifier(prefix+"-"+finalSuffixes);
-                                    aihdId.setLocation(location);
-                                    aihdId.setPreferred(true);
-                                    aihdId.setCreator(Context.getAuthenticatedUser());
-                                    aihdId.setDateCreated(new Date());
-
-                                    //
-                                    p.addIdentifier(aihdId);
-                                    break;
+                                //
+                                p.addIdentifier(aihdId);
+                            }
+                        }
+                    }
 
                     }
                 }
