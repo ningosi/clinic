@@ -59,6 +59,7 @@ public class ConvertPatientPhoneNumberIntoIdentifierTask extends AbstractTask {
                             PatientIdentifier identifiersMobile = patientWithMobileNumber.getPatientIdentifier(pit_mobile_number);
                             if (mobileNo.getValue().equals(identifiersMobile.getIdentifier())) {
                                 //There is a patient already who has this identifier of this type hence skipped.
+                                break;
                             } else {
 
                                 PatientIdentifier newMobileNumber = new PatientIdentifier();
@@ -67,9 +68,9 @@ public class ConvertPatientPhoneNumberIntoIdentifierTask extends AbstractTask {
                                 newMobileNumber.setCreator(Context.getAuthenticatedUser());
                                 newMobileNumber.setDateCreated(new Date());
 
-                                //
+                                //Add the patient identifier on the patient
                                 p.addIdentifier(newMobileNumber);
-                                patientService.savePatient(p);
+
                             }
 
                         }
@@ -83,7 +84,6 @@ public class ConvertPatientPhoneNumberIntoIdentifierTask extends AbstractTask {
 
                         //
                         p.addIdentifier(newMobileNumber);
-                        patientService.savePatient(p);
                     }
 
                 }
