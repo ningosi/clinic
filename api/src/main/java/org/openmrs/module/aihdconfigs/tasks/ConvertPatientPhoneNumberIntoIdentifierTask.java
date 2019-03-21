@@ -52,11 +52,10 @@ public class ConvertPatientPhoneNumberIntoIdentifierTask extends AbstractTask {
         if(patientIds_withoutMobileNo.size() > 0){
             for (List<Object> row : patientIds_withoutMobileNo) {
                 Patient p = patientService.getPatient((Integer) row.get(0));
-                PatientIdentifier identifiers= p.getPatientIdentifier(pit_mobile_number);
                 PersonAttribute mobileNo =p.getAttribute(mobileNumber);
                 if(mobileNo != null && StringUtils.isNotEmpty(mobileNo.getValue())){
                     for (List<Object> havingPhoneNumber : patientIds_withIds) {
-                        Patient patientWithMobileNumber = patientService.getPatient((Integer) row.get(0));
+                        Patient patientWithMobileNumber = patientService.getPatient((Integer) havingPhoneNumber.get(0));
                         PatientIdentifier identifiersMobile= patientWithMobileNumber.getPatientIdentifier(pit_mobile_number);
                         if (mobileNo.getValue().equals(identifiersMobile.getIdentifier())){
                             //There is a patient already who has this identifier of this type hence skipped.
