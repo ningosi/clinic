@@ -7,8 +7,10 @@ import org.openmrs.LocationAttributeType;
 import org.openmrs.Patient;
 import org.openmrs.PatientIdentifier;
 import org.openmrs.PatientIdentifierType;
+import org.openmrs.Person;
 import org.openmrs.PersonAttribute;
 import org.openmrs.PersonAttributeType;
+import org.openmrs.User;
 import org.openmrs.api.AdministrationService;
 import org.openmrs.api.PatientService;
 import org.openmrs.api.context.Context;
@@ -53,6 +55,7 @@ public class FormatAIHDNumbersTask extends AbstractTask {
 
     private void formatAihdPatientNumbers(){
         PatientService patientService = Context.getPatientService();
+        Integer sessionLocationId = Context.getUserContext().getLocationId();
         AdministrationService as = Context.getAdministrationService();
         PatientIdentifierType pit = patientService.getPatientIdentifierTypeByUuid("b9ba3418-7108-450c-bcff-7bc1ed5c42d1");
         List<List<Object>> patientIds_withIds = as.executeSQL("SELECT patient_id FROM patient_identifier WHERE identifier_type IN (SELECT patient_identifier_type_id FROM patient_identifier_type WHERE uuid = 'b9ba3418-7108-450c-bcff-7bc1ed5c42d1')", true);
@@ -76,6 +79,7 @@ public class FormatAIHDNumbersTask extends AbstractTask {
             }
         }
         if(patientIds_withouIds.size() > 0) {
+
             String prefix = "";
             String suffix = "";
             PersonAttributeType attributeType = MetadataUtils.existing(PersonAttributeType.class, PersonAttributeTypes.PATIENT_LOCATION.uuid());
@@ -83,6 +87,7 @@ public class FormatAIHDNumbersTask extends AbstractTask {
             for (List<Object> row : patientIds_withouIds) {
                 Patient p = patientService.getPatient((Integer) row.get(0));
                 PersonAttribute personAttribute = p.getAttribute(attributeType);
+
                 if(personAttribute != null && StringUtils.isNotEmpty(personAttribute.getValue())){
                     Location location = Context.getLocationService().getLocation(personAttribute.getValue().replace("_", " "));
 
@@ -113,6 +118,41 @@ public class FormatAIHDNumbersTask extends AbstractTask {
                               }
                           }
                       }
+                }
+                else if (personAttribute == null) {
+                    User currentUser = Context.getAuthenticatedUser();
+                    Person person = Context.getPersonService().getPerson(currentUser.getPerson().getPersonId());
+                    PersonAttributeType personAttributeType = Context.getPersonService().getPersonAttributeTypeByUuid(PersonAttributeTypes.USER_LOCATION.uuid());
+                    PersonAttribute userAttribute = person.getAttribute(personAttributeType);
+                    if(userAttribute != null) {
+                        Location userLocation = Context.getLocationService().getLocation(Integer.parseInt(userAttribute.getValue()));
+                        Set<LocationAttribute> attribute = new HashSet<LocationAttribute>(userLocation.getAttributes());
+                        if(attribute.size() > 0){
+                            for(LocationAttribute locationAttribute: attribute){
+                                if(locationAttribute.getAttributeType().equals(locationAttributeType)){
+
+
+                                    prefix = (String) locationAttribute.getValue();
+                                    suffix = String.valueOf(identifierList_forPatientsWithoutId(pit, patientService, prefix) + 1);
+                                    String finalSuffixes = finalSuffix(suffix);
+                                    UUID uuid = UUID.randomUUID();
+                                    PatientIdentifier aihdId = new PatientIdentifier();
+                                    aihdId.setIdentifierType(pit);
+                                    aihdId.setUuid(String.valueOf(uuid));
+                                    aihdId.setIdentifier(prefix+"-"+finalSuffixes);
+                                    aihdId.setLocation(userLocation);
+                                    aihdId.setPreferred(true);
+                                    aihdId.setCreator(Context.getAuthenticatedUser());
+                                    aihdId.setDateCreated(new Date());
+
+                                    //
+                                    p.addIdentifier(aihdId);
+                                    break;
+
+                                }
+                            }
+                        }
+                    }
                 }
 
 

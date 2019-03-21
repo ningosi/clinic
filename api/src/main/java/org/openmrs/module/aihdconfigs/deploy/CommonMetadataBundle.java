@@ -41,6 +41,7 @@ public class CommonMetadataBundle extends AbstractMetadataBundle {
         install(PersonAttributeTypes.USER_LOCATION);
         install(PersonAttributeTypes.USER_LANGUAGE);
         install(PersonAttributeTypes.NATIONAL_ID_NUMBER);
+        install(PersonAttributeTypes.PATIENT_MFL_CODE);
 
         log.info("Person AttributeTypes installed");
 

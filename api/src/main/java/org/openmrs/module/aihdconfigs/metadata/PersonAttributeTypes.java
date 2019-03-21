@@ -311,4 +311,26 @@ public class PersonAttributeTypes {
             return 0;
         }
     };
+
+    public static PersonAttributeTypeDescriptor PATIENT_MFL_CODE = new PersonAttributeTypeDescriptor() {
+        @Override
+        public String uuid() {
+            return "6b789d32-4ba7-11e9-8afc-db35f8dcf629";
+        }
+
+        @Override
+        public String name() {
+            return "Patient MFL code";
+        }
+
+        @Override
+        public String description() {
+            return "Facility where the patient is registered";
+        }
+
+        @Override
+        public double sortWeight() {
+            return 0;
+        }
+    };
 }
