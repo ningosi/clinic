@@ -241,6 +241,11 @@ public class AihdConfigurationsActivator implements ModuleActivator {
 		properties.add(new GlobalProperty("appointmentschedulingui.started", "false"));
 		//disable the atlas module as we are NOT using it at the moment
 		properties.add(new GlobalProperty("atlas.started", "false"));
+
+		// enable searching on parts of the patient identifier
+		// the prefix and suffix provide a % round the entered search term with a like
+		properties.add(new GlobalProperty("patient.identifierPrefix", "%"));
+		properties.add(new GlobalProperty("patient.identifierSuffix", "%"));
 		return properties;
 	}
 

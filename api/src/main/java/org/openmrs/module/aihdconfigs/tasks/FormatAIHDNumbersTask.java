@@ -85,8 +85,10 @@ public class FormatAIHDNumbersTask extends AbstractTask {
             String suffix = "";
             PersonAttributeType attributeType = MetadataUtils.existing(PersonAttributeType.class, PersonAttributeTypes.PATIENT_LOCATION.uuid());
             LocationAttributeType locationAttributeType = Context.getLocationService().getLocationAttributeTypeByName("MflCode");
+            PersonAttributeType personAttributeTypeMflForPatient = Context.getPersonService().getPersonAttributeTypeByUuid(PersonAttributeTypes.PATIENT_MFL_CODE.uuid());
             for (List<Object> row : patientIds_withouIds) {
                 Patient p = patientService.getPatient((Integer) row.get(0));
+                PersonAttribute mflCodeForPatient = p.getAttribute(personAttributeTypeMflForPatient);
                 PersonAttribute personAttribute = p.getAttribute(attributeType);
 
                 if(personAttribute != null && StringUtils.isNotEmpty(personAttribute.getValue())){
@@ -120,20 +122,12 @@ public class FormatAIHDNumbersTask extends AbstractTask {
                           }
                       }
                 }
-                else if (personAttribute == null) {
-                    User currentUser = Context.getAuthenticatedUser();
-                    Person person = Context.getPersonService().getPerson(currentUser.getPerson().getPersonId());
-                    PersonAttributeType personAttributeType = Context.getPersonService().getPersonAttributeTypeByUuid(PersonAttributeTypes.USER_LOCATION.uuid());
-                    PersonAttribute userAttribute = person.getAttribute(personAttributeType);
-                    if(userAttribute != null) {
-                        Location userLocation = Context.getLocationService().getLocation(Integer.parseInt(userAttribute.getValue()));
-                        Set<LocationAttribute> attribute = new HashSet<LocationAttribute>(userLocation.getAttributes());
-                        if(attribute.size() > 0){
-                            for(LocationAttribute locationAttribute: attribute){
-                                if(locationAttribute.getAttributeType().equals(locationAttributeType)){
 
+                else if (mflCodeForPatient != null && StringUtils.isNotEmpty(mflCodeForPatient.getValue())) {
+                    Location location = (Location) as.executeSQL("SELECT location_id FROM location_attribute WHERE value_reference='"+mflCodeForPatient.getValue()+"'", true);
+                    System.out.println("This is the location >>> "+location.getName());
 
-                                    prefix = (String) locationAttribute.getValue();
+                    prefix = mflCodeForPatient.getValue();
                                     suffix = String.valueOf(identifierList_forPatientsWithoutId(pit_aihd, patientService, prefix) + 1);
                                     String finalSuffixes = finalSuffix(suffix);
                                     UUID uuid = UUID.randomUUID();
@@ -141,7 +135,7 @@ public class FormatAIHDNumbersTask extends AbstractTask {
                                     aihdId.setIdentifierType(pit_aihd);
                                     aihdId.setUuid(String.valueOf(uuid));
                                     aihdId.setIdentifier(prefix+"-"+finalSuffixes);
-                                    aihdId.setLocation(userLocation);
+                                    aihdId.setLocation(location);
                                     aihdId.setPreferred(true);
                                     aihdId.setCreator(Context.getAuthenticatedUser());
                                     aihdId.setDateCreated(new Date());
@@ -150,9 +144,6 @@ public class FormatAIHDNumbersTask extends AbstractTask {
                                     p.addIdentifier(aihdId);
                                     break;
 
-                                }
-                            }
-                        }
                     }
                 }
 
@@ -160,8 +151,6 @@ public class FormatAIHDNumbersTask extends AbstractTask {
 
             }
         }
-
-    }
 
     private Integer identifierList_forPatientsWithId(PatientIdentifierType pit, PatientService patientService, PatientIdentifier identifiers, String prefix){
         List<PatientIdentifier> allIdentifiers = patientService.getPatientIdentifiers(null, Arrays.asList(pit), Arrays.asList(identifiers.getLocation()), null, true);
