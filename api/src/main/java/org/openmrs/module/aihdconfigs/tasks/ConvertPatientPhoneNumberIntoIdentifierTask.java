@@ -43,7 +43,6 @@ public class ConvertPatientPhoneNumberIntoIdentifierTask extends AbstractTask {
     private void convertPhoneNumberIntoPatientIdentifier() {
         //logic to perform this will follow here
         PatientService patientService = Context.getPatientService();
-        Integer sessionLocationId = Context.getUserContext().getLocationId();
         AdministrationService as = Context.getAdministrationService();
         PersonAttributeType mobileNumber= MetadataUtils.existing(PersonAttributeType.class, PersonAttributeTypes.TELEPHONE_NUMBER.uuid());
         PatientIdentifierType pit_mobile_number = patientService.getPatientIdentifierTypeByUuid(PatientIdentifierTypes.MOBILE_NUMBER.uuid());
@@ -54,23 +53,37 @@ public class ConvertPatientPhoneNumberIntoIdentifierTask extends AbstractTask {
                 Patient p = patientService.getPatient((Integer) row.get(0));
                 PersonAttribute mobileNo =p.getAttribute(mobileNumber);
                 if(mobileNo != null && StringUtils.isNotEmpty(mobileNo.getValue())){
-                    for (List<Object> havingPhoneNumber : patientIds_withIds) {
-                        Patient patientWithMobileNumber = patientService.getPatient((Integer) havingPhoneNumber.get(0));
-                        PatientIdentifier identifiersMobile= patientWithMobileNumber.getPatientIdentifier(pit_mobile_number);
-                        if (mobileNo.getValue().equals(identifiersMobile.getIdentifier())){
-                            //There is a patient already who has this identifier of this type hence skipped.
-                        }
-                        else {
-                            PatientIdentifier newMobileNumber = new PatientIdentifier();
-                            newMobileNumber.setIdentifier(mobileNo.getValue());
-                            newMobileNumber.setIdentifierType(pit_mobile_number);
-                            newMobileNumber.setCreator(Context.getAuthenticatedUser());
-                            newMobileNumber.setDateCreated(new Date());
+                    if(patientIds_withIds.size() > 0) {
+                        for (List<Object> havingPhoneNumber : patientIds_withIds) {
+                            Patient patientWithMobileNumber = patientService.getPatient((Integer) havingPhoneNumber.get(0));
+                            PatientIdentifier identifiersMobile = patientWithMobileNumber.getPatientIdentifier(pit_mobile_number);
+                            if (mobileNo.getValue().equals(identifiersMobile.getIdentifier())) {
+                                //There is a patient already who has this identifier of this type hence skipped.
+                            } else {
 
-                            //
-                            p.addIdentifier(newMobileNumber);
-                        }
+                                PatientIdentifier newMobileNumber = new PatientIdentifier();
+                                newMobileNumber.setIdentifier(mobileNo.getValue());
+                                newMobileNumber.setIdentifierType(pit_mobile_number);
+                                newMobileNumber.setCreator(Context.getAuthenticatedUser());
+                                newMobileNumber.setDateCreated(new Date());
 
+                                //
+                                p.addIdentifier(newMobileNumber);
+                                patientService.savePatient(p);
+                            }
+
+                        }
+                    }
+                    else {
+                        PatientIdentifier newMobileNumber = new PatientIdentifier();
+                        newMobileNumber.setIdentifier(mobileNo.getValue());
+                        newMobileNumber.setIdentifierType(pit_mobile_number);
+                        newMobileNumber.setCreator(Context.getAuthenticatedUser());
+                        newMobileNumber.setDateCreated(new Date());
+
+                        //
+                        p.addIdentifier(newMobileNumber);
+                        patientService.savePatient(p);
                     }
 
                 }
