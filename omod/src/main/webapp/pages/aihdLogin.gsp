@@ -240,7 +240,6 @@
     .partnerLogo {
         text-align: center;
     }
-
     .footerLinks {
         text-align: center;
     }
