@@ -240,12 +240,10 @@
     .partnerLogo {
         text-align: center;
     }
-
     .footerLinks {
         text-align: center;
     }
-
-    .partnersRow {
+    .partnersRow{
         margin-left: 4%;
     }
     </style>
