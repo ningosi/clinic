@@ -204,8 +204,8 @@
     }
 
     #bmz-logo img {
-        width: 100%;
-        height: auto;
+        height: 120px;
+        width: 200px;
     }
 
     #bmz-logo {
@@ -227,10 +227,24 @@
     }
 
     #aihd-logo img {
-        width: 100%;
         float: left;
         padding: 0;
-        align: left;
+        height: 110px;
+        width: 200px;
+    }
+
+    #intellisoft-logo img {
+        height: 100px;
+    }
+
+    .partnerLogo {
+        text-align: center;
+    }
+    .footerLinks{
+        text-align: center;
+    }
+    .partnersRow{
+        margin-left: 4%;
     }
     </style>
 </head>
@@ -391,10 +405,12 @@ ${ui.includeFragment("referenceapplication", "infoAndErrorMessages")}
 
 <div class="container">
     <section>
-        <div class="page-header">
-            <a href="${ui.pageLink("referenceapplication", "home")}" class="pull-left">
+        <div class="page-header" style="text-align: center;float: none !important;">
+            <a href="${ui.pageLink("referenceapplication", "home")}">
                 <img src="${ui.resourceLink("aihdconfigs", "images/banners/city_county_logo.jpg")}" id="county-logo"/>
             </a>
+
+            <h1 style="text-align: center;">NAIROBI COUNTY NCD UHAI EMS</h1>
 
             <div class="clearfix"></div>
         </div>
@@ -480,40 +496,42 @@ ${ui.includeFragment("referenceapplication", "infoAndErrorMessages")}
                 </form>
             </div>
         </div>
-        <hr>
 
-        <div class="row">
+        <div class="row partnersRow">
             <h3 style="text-align: center"><button type="button" class="btn btn-success">Our Partners</button></h3>
 
-            <div class="col-md-4" id="malteser-logo">
+            <div class="col-md-3 partnerLogo" id="malteser-logo">
                 <img src="${ui.resourceLink("aihdconfigs", "svg/malteser_logo.svg")}" height="95px"/>
             </div>
 
-            <div class="col-md-4" id="bmz-logo">
-                <img src="${ui.resourceLink("aihdconfigs", "images/bmz_logo2.png")}" height="125px"/>
+            <div class="col-md-3 partnerLogo" id="bmz-logo">
+                <img src="${ui.resourceLink("aihdconfigs", "images/BMZ.jpg")}" height="125px"/>
             </div>
 
-            <div class="col-md-4" id="aihd-logo">
-                <img src="${ui.resourceLink("aihdconfigs", "images/AIHD_logo.jpg")}"/>
+            <div class="col-md-3 partnerLogo" id="aihd-logo">
+                <img src="${ui.resourceLink("aihdconfigs", "images/aihd.png")}"/>
+            </div>
+
+            <div class="col-md-3 partnerLogo" id="intellisoft-logo">
+                <img src="${ui.resourceLink("aihdconfigs", "images/IntelliSOFT.png")}"/>
             </div>
         </div>
-        <hr>
 
         <div class="row">
-            <div class="col-md-3">
-                <a href="#" target="_blank">HelpDesk</a>
+            <div class="col-md-3 footerLinks">
+                <a href="https://ncdems.on.spiceworks.com/portal/tickets" target="_blank">HelpDesk</a>
             </div>
 
-            <div class="col-md-3">
-                <a href="#" target="_blank">Terms & Conditions</a>
+            <div class="col-md-3 footerLinks">
+                <a href="${ui.pageLink("aihdconfigs", "terms")}" target="_blank">Terms & Conditions</a>
             </div>
 
-            <div class="col-md-3">
-                <a href="#" target="_blank">SOPs & Job Aids</a>
+            <div class="col-md-3 footerLinks">
+                <a href="${ui.pageLink("aihdconfigs", "sops")}" target="_blank">SOPs & Job Aids</a>
             </div>
 
-            <div class="col-md-3">
-                <a href="#" target="_blank">FAQs</a>
+            <div class="col-md-3 footerLinks">
+                <a href="${ui.pageLink("aihdconfigs", "faqs")}" target="_blank">FAQs</a>
             </div>
         </div>
     </section>
