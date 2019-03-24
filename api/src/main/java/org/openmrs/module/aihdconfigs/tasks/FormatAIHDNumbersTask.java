@@ -127,6 +127,7 @@ public class FormatAIHDNumbersTask extends AbstractTask {
                         for (List<Object> loc : location) {
                             Location useLocation = Context.getLocationService().getLocation((Integer) loc.get(0));
                             if(useLocation != null) {
+                                prefix = mflCodeForPatient.getValue();
                                 suffix = String.valueOf(identifierList_forPatientsWithoutId(pit_aihd, patientService, prefix) + 1);
                                 String finalSuffixes = finalSuffix(suffix);
                                 UUID uuid = UUID.randomUUID();
