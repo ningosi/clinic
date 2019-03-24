@@ -498,8 +498,6 @@ ${ui.includeFragment("referenceapplication", "infoAndErrorMessages")}
         </div>
 
         <div class="row partnersRow">
-            <h3 style="text-align: center"><button type="button" class="btn btn-success">Our Partners</button></h3>
-
             <div class="col-md-3 partnerLogo" id="malteser-logo">
                 <img src="${ui.resourceLink("aihdconfigs", "svg/malteser_logo.svg")}" height="95px"/>
             </div>
