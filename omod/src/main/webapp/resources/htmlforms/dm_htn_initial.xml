@@ -1446,7 +1446,7 @@
                      <tr>
                         <td valign="top">
                            <label>Hypertension:</label>
-                           <obs  conceptId="165091" answerConceptIds="165092,165093,1175" answerLabels="New HTN patient,Known HTN patient,NA" style="radio" answerSeparator="" id="htn_status" class="align-radio-input"/>
+                           <obs required="true" conceptId="165091" answerConceptIds="165092,165093,1175" answerLabels="New HTN patient,Known HTN patient,NA" style="radio" answerSeparator="" id="htn_status" class="align-radio-input"/>
                            <span id="htn_status_msg"></span>
                         </td>
                         <td valign="top">
