@@ -1104,20 +1104,14 @@
         return [
                 {name:'occupation',message:'Occupation is required', location:'page1'}, 
                 {name:'education_level',message:'Education Level is required', location:'page1'}, 
-                {name:'diabetes_status',message:'Diabetes Status is required', location:'page1'}, 
-                {name:'diabetes_runs_in_family',message:'Diabetes runs in the family is required', location:'page1'}, 
-                {name:'htn_status',message:'Hypertension status is required', location:'page1'}, 
-                {name:'hypertension_runs_in_family',message:'Hypertension runs in the family question is required', location:'page1'}, 
+                {name:'diabetes_status',message:'Diabetes Status is required', location:'page1'},
+                {name:'htn_status',message:'Hypertension status is required', location:'page1'},
                 {name:'hiv_status',message:'HIV Status is required', location:'page1'}, 
                 {name:'nhif',message:'Nhif status is required', location:'page1'}, 
                 {name:'referal',message:'Patient referral status is required', location:'page1'}, 
-                {name:'do_you_exercise',message:'Do you exercise question is required', location:'page1'}, 
-                {name:'follow_a_balanced_diet',message:'Do you follow a balanced diet question  is required', location:'page1'}, 
+                {name:'do_you_exercise',message:'Do you exercise question is required', location:'page1'},
                 {name:'smoke_cigarettes',message:'Do you smoke cigarettes question is required', location:'page1'}, 
-                {name:'drink_alcohol',message:'Do you drink alcohol question is required', location:'page1'},
-                {name:'nutrition_opt',message:'Nutrition counselling/education is required', location:'page3'},
-                {name:'physical_activity_opt',message:'Physical activity counselling/education is required', location:'page3'}
-                 
+                {name:'drink_alcohol',message:'Do you drink alcohol question is required', location:'page1'}
          ];
         }
 
@@ -1445,14 +1439,14 @@
                         </td>
                         <td valign="top">
                            <label>Diabetes runs in the family</label>
-                           <obs required="true" id="diabetes_runs_in_family" conceptId="140228" answerConceptIds="1065,1066" answerLabels="Yes,No" style="radio" answerSeparator="" class="align-radio-input"/>
+                           <obs id="diabetes_runs_in_family" conceptId="140228" answerConceptIds="1065,1066" answerLabels="Yes,No" style="radio" answerSeparator="" class="align-radio-input"/>
                            <span id="diabetes_runs_in_family_msg"></span>
                         </td>
                      </tr>
                      <tr>
                         <td valign="top">
                            <label>Hypertension:</label>
-                           <obs required="true" conceptId="165091" answerConceptIds="165092,165093,1175" answerLabels="New HTN patient,Known HTN patient,NA" style="radio" answerSeparator="" id="htn_status" class="align-radio-input"/>
+                           <obs  conceptId="165091" answerConceptIds="165092,165093,1175" answerLabels="New HTN patient,Known HTN patient,NA" style="radio" answerSeparator="" id="htn_status" class="align-radio-input"/>
                            <span id="htn_status_msg"></span>
                         </td>
                         <td valign="top">
@@ -1467,7 +1461,7 @@
                         </td>
                         <td valign="top">
                            <label>Hypertension runs in the family</label>
-                           <obs required="true" id="hypertension_runs_in_family" conceptId="26d521eb-e1df-464c-8356-93616078080d" answerConceptIds="1065,1066" answerLabels="Yes,No" style="radio" answerSeparator="" class="align-radio-input"/>
+                           <obs id="hypertension_runs_in_family" conceptId="26d521eb-e1df-464c-8356-93616078080d" answerConceptIds="1065,1066" answerLabels="Yes,No" style="radio" answerSeparator="" class="align-radio-input"/>
                            <span id="hypertension_runs_in_family_msg"></span>
                         </td>
                      </tr>
@@ -1652,7 +1646,7 @@
                         </td>
                         <td valign="top">
                            <label>Do you follow a balanced diet?</label>
-                           <obs required="true" id="follow_a_balanced_diet" conceptId="44e4197f-2feb-41da-a500-5b0dcf1ab335" answerConceptIds="1065,1066,163721" answerLabels="Yes,No,Stopped" style="radio" answerSeparator="" class="align-radio-input"/>
+                           <obs id="follow_a_balanced_diet" conceptId="44e4197f-2feb-41da-a500-5b0dcf1ab335" answerConceptIds="1065,1066,163721" answerLabels="Yes,No,Stopped" style="radio" answerSeparator="" class="align-radio-input"/>
                            <span id="follow_a_balanced_diet_msg"></span>
                         </td>
                      </tr>
@@ -2574,15 +2568,10 @@
                   <tbody>
                      <tr>
                         <td> 
-                        <div><span class="required-caption"> *</span>  <obs conceptId="1379" class="required-obs" id="nutrition_opt" answerConceptId="1380" answerLabel="Nutrition" style="checkbox"  /> </div>
-                        <div><span class="required-caption"> *</span><obs conceptId="1379" class="required-obs" id="physical_activity_opt" answerConceptId="159364" answerLabel="Physical Activity" style="checkbox" /></div>
+                        <div>  <obs conceptId="1379" class="required-obs" id="nutrition_opt" answerConceptId="1380" answerLabel="Nutrition" style="checkbox"  /> </div>
+                        <div><obs conceptId="1379" class="required-obs" id="physical_activity_opt" answerConceptId="159364" answerLabel="Physical Activity" style="checkbox" /></div>
                            <obs conceptId="1379" answerConceptId="5490" answerLabel="Psychosocial" style="checkbox" class="align-checkbox-input"/>
                            <obs id="education" conceptId="1379" answerConceptId="5622" answerLabel="Other" style="checkbox" class="align-checkbox-input"/>
-                           <div class="educationFlags">
-                            <span id="nutrition_opt_msg" class="required"></span>
-                            <span id="physical_activity_opt_msg" class="required"></span>
-                           </div>
-
                         </td>
                      </tr>
                      <tr>
