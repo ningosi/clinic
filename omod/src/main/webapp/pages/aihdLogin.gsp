@@ -200,7 +200,6 @@
         padding-top: 0;
         height: 170px;
         width: auto;
-        align: left;
     }
 
     #bmz-logo img {
@@ -212,7 +211,6 @@
         width: auto;
         float: left;
         padding: 5px;
-        align: left;
     }
 
 
@@ -223,18 +221,20 @@
         border-right-width: 0;
         border-right-color: #e5e5e5;
         padding: 0;
-        align: left;
+        margin-top: 5%;
     }
 
     #aihd-logo img {
         float: left;
         padding: 0;
         height: 110px;
-        width: 200px;
+        width: 180px;
     }
 
     #intellisoft-logo img {
-        height: 100px;
+        height: 90px;
+        width: 150px;
+        margin-top: 5%;
     }
 
     .partnerLogo {
@@ -403,7 +403,7 @@ ${ui.includeFragment("referenceapplication", "infoAndErrorMessages")}
 
 </script>
 
-<div class="container">
+<div class="container-fluid">
     <section>
         <div class="page-header" style="text-align: center;float: none !important;">
             <a href="${ui.pageLink("referenceapplication", "home")}">
@@ -427,7 +427,7 @@ ${ui.includeFragment("referenceapplication", "infoAndErrorMessages")}
                         <label for="username"
                                class="col-md-4 control-label">${ui.message("referenceapplication.login.username")}:</label>
 
-                        <div class="col-md-8">
+                        <div class="col-md-4">
                             <input id="username" type="text" name="username"
                                    placeholder="${ui.message("referenceapplication.login.username.placeholder")}"/>
                         </div>
@@ -437,7 +437,7 @@ ${ui.includeFragment("referenceapplication", "infoAndErrorMessages")}
                         <label for="password"
                                class="col-md-4 control-label">${ui.message("referenceapplication.login.password")}:</label>
 
-                        <div class="col-md-8">
+                        <div class="col-md-4">
                             <input id="password" type="password" name="password"
                                    placeholder="${ui.message("referenceapplication.login.password.placeholder")}"/>
                         </div>
@@ -446,7 +446,7 @@ ${ui.includeFragment("referenceapplication", "infoAndErrorMessages")}
                     <div class="form-group form-group-lg" style="display: none;">
                         <label for="sessionLocation" class="col-md-4 control-label">Health facility:</label>
 
-                        <div class="col-md-8">
+                        <div class="col-md-4">
                             <select id="sessionLocation" class="form-control">
                                 <% locations.sort { ui.format(it) }.each { %>
                                 <option id="${it.name}" value="${it.id}">${ui.format(it)}</option>
@@ -472,10 +472,9 @@ ${ui.includeFragment("referenceapplication", "infoAndErrorMessages")}
                         <label class="col-md-4 control-label"></label>
 
                         <div class="col-md-8">
-                            <input type="checkbox" id="terms_and_conditions" name="terms_and_conditions"
-                                   value="true"> <span><a href="${ui.pageLink("aihdconfigs", "terms")}"
-                                                          target="_blank">I have and understood the terms and conditions</a>
-                        </span> <br>
+                            <span><a href="${ui.pageLink("aihdconfigs", "terms")}"
+                                     target="_blank">I have and understood the terms and conditions</a>
+                            </span> <br>
                             <span id="tnc_notification" style="color:red; font-size:18;"></span>
                         </div>
                     </div>
