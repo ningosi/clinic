@@ -1,3 +1,10 @@
+<style media="screen" type="text/css">
+    .customDropdown{
+        float: none;
+        top: 0;
+        background: transparent;
+    }
+</style>
 <%
     def addContextPath = {
         if (!it)
@@ -84,7 +91,19 @@
         jq('.identifier').css('cursor', 'pointer');
         <% } %>
         <% } %>
+
     });
+    jq('.resources').hover(
+        function () {
+            jq('.appui-toggle').show();
+            jq('.appui-icon-caret-down').hide();
+        },
+        function () {
+            jq('.appui-toggle').hide();
+            jq('.appui-icon-caret-down').show();
+        }
+    );
+    jq('.resources').css('cursor', 'pointer');
 
 </script>
 <header>
@@ -97,6 +116,28 @@
     </div>
     <% if (context.authenticated) { %>
     <ul class="user-options" style="padding: 20px;">
+        <li class="dropdown customDropdown">
+            Resources
+            <i class="icon-caret-down appui-icon-caret-down link"></i><i class="icon-caret-up link appui-toggle"
+                                                                         style="display: none;"></i>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+                <li>
+                    <a href="${ui.pageLink("aihdconfigs", "terms")}" target="_blank">Terms & Conditions</a>
+                </li>
+                <li>
+                    <a href="${ui.pageLink("aihdconfigs", "sops")}" target="_blank">SOPs & Job Aids</a>
+                </li>
+                <li>
+                    <a href="${ui.pageLink("aihdconfigs", "faqs")}" target="_blank">FAQs</a>
+                </li>
+                <li>
+                    <a href="${ui.pageLink("aihdconfigs", "cardiovascular")}" target="_blank">Cardiovascular Guidelines</a>
+                </li>
+                <li>
+                    <a href="${ui.pageLink("aihdconfigs", "diabetesClinical")}" target="_blank">Diabetes Guidelines</a>
+                </li>
+            </ul>
+        </li>
         <li>
             <i class="icon-question-sign"></i><a href="https://ncdems.on.spiceworks.com/portal/tickets" target="_blank">HelpDesk/Support</a>
         </li>

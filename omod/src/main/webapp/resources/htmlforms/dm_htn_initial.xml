@@ -2568,8 +2568,8 @@
                   <tbody>
                      <tr>
                         <td> 
-                        <div>  <obs conceptId="1379" class="required-obs" id="nutrition_opt" answerConceptId="1380" answerLabel="Nutrition" style="checkbox"  /> </div>
-                        <div><obs conceptId="1379" class="required-obs" id="physical_activity_opt" answerConceptId="159364" answerLabel="Physical Activity" style="checkbox" /></div>
+                          <obs conceptId="1379" class="align-checkbox-input" id="nutrition_opt" answerConceptId="1380" answerLabel="Nutrition" style="checkbox"  />
+                        <obs conceptId="1379" class="align-checkbox-input" id="physical_activity_opt" answerConceptId="159364" answerLabel="Physical Activity" style="checkbox" />
                            <obs conceptId="1379" answerConceptId="5490" answerLabel="Psychosocial" style="checkbox" class="align-checkbox-input"/>
                            <obs id="education" conceptId="1379" answerConceptId="5622" answerLabel="Other" style="checkbox" class="align-checkbox-input"/>
                         </td>
