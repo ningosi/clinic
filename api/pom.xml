@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>org.openmrs.module</groupId>
 		<artifactId>aihdconfigs</artifactId>
-		<version>1.0.1</version>
+		<version>1.0.2-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>aihdconfigs-api</artifactId>
@@ -213,9 +213,4 @@
 			</testResource>
 		</testResources>
 	</build>
-
-
-  <scm>
-    <tag>1.0.1</tag>
-  </scm>
 </project>
