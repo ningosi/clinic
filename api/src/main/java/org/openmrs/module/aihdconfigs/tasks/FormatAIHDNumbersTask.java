@@ -7,10 +7,8 @@ import org.openmrs.LocationAttributeType;
 import org.openmrs.Patient;
 import org.openmrs.PatientIdentifier;
 import org.openmrs.PatientIdentifierType;
-import org.openmrs.Person;
 import org.openmrs.PersonAttribute;
 import org.openmrs.PersonAttributeType;
-import org.openmrs.User;
 import org.openmrs.api.AdministrationService;
 import org.openmrs.api.PatientService;
 import org.openmrs.api.context.Context;
@@ -22,7 +20,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -58,7 +55,6 @@ public class FormatAIHDNumbersTask extends AbstractTask {
         PatientService patientService = Context.getPatientService();
         AdministrationService as = Context.getAdministrationService();
         PatientIdentifierType pit_aihd = patientService.getPatientIdentifierTypeByUuid(PatientIdentifierTypes.AIHD_PATIENT_NUMBER.uuid());
-        List<List<Object>> patientIds_withIds = as.executeSQL("SELECT patient_id FROM patient_identifier WHERE identifier_type IN (SELECT patient_identifier_type_id FROM patient_identifier_type WHERE uuid = 'b9ba3418-7108-450c-bcff-7bc1ed5c42d1')", true);
         List<List<Object>> patientIds_withouIds = as.executeSQL("SELECT patient_id FROM patient WHERE patient_id NOT IN(select patient_id from patient_identifier where identifier_type=4)", true);
         if(patientIds_withouIds.size() > 0) {
 
@@ -135,22 +131,6 @@ public class FormatAIHDNumbersTask extends AbstractTask {
 
             }
         }
-
-    private Integer identifierList_forPatientsWithId(PatientIdentifierType pit, PatientService patientService, PatientIdentifier identifiers, String prefix){
-        List<PatientIdentifier> allIdentifiers = patientService.getPatientIdentifiers(null, Arrays.asList(pit), Arrays.asList(identifiers.getLocation()), null, true);
-        List<PatientIdentifier> finalList = new ArrayList<PatientIdentifier>();
-        for(PatientIdentifier patientIdentifier:allIdentifiers){
-            if(patientIdentifier.getIdentifier() != null && patientIdentifier.getIdentifier().length() > 10 && patientIdentifier.getIdentifier().contains("-")){
-                //get the first part of the identifier
-                String pref = patientIdentifier.getIdentifier().split("-")[0];
-                if(pref.equals(prefix)) {
-                    finalList.add(patientIdentifier);
-                }
-            }
-        }
-
-        return finalList.size();
-    }
 
     private Integer identifierList_forPatientsWithoutId(PatientService patientService, String prefix){
         AdministrationService as = Context.getAdministrationService();
