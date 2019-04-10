@@ -83,4 +83,24 @@ public class PatientIdentifierTypes {
             return "Will be determined";
         }
     };
+
+    public static PatientIdentifierTypeDescriptor ALTERNATIVE_PHONE_NUMBER = new PatientIdentifierTypeDescriptor() {
+        @Override
+        public String name() {
+            return "Alternative Phone Number";
+        }
+
+        @Override
+        public String description() {
+            return "Alternative Phone Number for the patient";
+        }
+
+        public String uuid() {
+            return "fd011236-5bd1-11e9-89d1-bff1d8d21d5d";
+        }
+
+        public String formatDescription() {
+            return "Will be determined";
+        }
+    };
 }
