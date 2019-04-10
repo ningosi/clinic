@@ -312,5 +312,18 @@
         </sql>
     </changeSet>
 
+    <changeSet id="aihd-20190410-2315" author="ningosi">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="1">
+                SELECT COUNT(*) FROM scheduler_task_config WHERE uuid='effa3bee-b4e7-11e8-8a1c-17f7d04d0181';
+            </sqlCheck>
+        </preConditions>
+        <sql>
+            SET foreign_key_checks = 0;
+            UPDATE scheduler_task_config SET repeat_interval=5 WHERE uuid='effa3bee-b4e7-11e8-8a1c-17f7d04d0181';
+            SET foreign_key_checks = 1;
+        </sql>
+    </changeSet>
+
 
 </databaseChangeLog>
