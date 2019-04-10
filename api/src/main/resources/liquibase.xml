@@ -299,5 +299,18 @@
         </insert>
     </changeSet>
 
+    <changeSet id="aihd-20190410-2210" author="ningosi">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="1">
+                SELECT COUNT(*) FROM scheduler_task_config WHERE uuid='b41666e6-aa94-11e8-9dc9-839bedac0baa';
+            </sqlCheck>
+        </preConditions>
+        <sql>
+            SET foreign_key_checks = 0;
+                UPDATE scheduler_task_config SET repeat_interval=10 WHERE uuid='b41666e6-aa94-11e8-9dc9-839bedac0baa';
+            SET foreign_key_checks = 1;
+        </sql>
+    </changeSet>
+
 
 </databaseChangeLog>
