@@ -134,7 +134,8 @@ public class FormatAIHDNumbersTask extends AbstractTask {
 
     private Integer identifierList_forPatientsWithoutId(PatientService patientService, String prefix){
         AdministrationService as = Context.getAdministrationService();
-        List<List<Object>> patientIdentifierValues = as.executeSQL("SELECT patient_identifier_id FROM patient_identifier WHERE identifier_type IN (SELECT patient_identifier_type_id FROM patient_identifier_type WHERE uuid = 'b9ba3418-7108-450c-bcff-7bc1ed5c42d1')", true);
+        String prefixLike = prefix+"%";
+        List<List<Object>> patientIdentifierValues = as.executeSQL("SELECT patient_identifier_id FROM patient_identifier WHERE identifier_type IN (SELECT patient_identifier_type_id FROM patient_identifier_type WHERE uuid = 'b9ba3418-7108-450c-bcff-7bc1ed5c42d1') AND identifier LIKE "+"'"+prefixLike+"'", true);
         List<PatientIdentifier> finalList_without = new ArrayList<PatientIdentifier>();
         for(List<Object> row : patientIdentifierValues){
             PatientIdentifier patientIdentifier = patientService.getPatientIdentifier((Integer) row.get(0));
