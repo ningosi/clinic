@@ -60,24 +60,6 @@ public class FormatAIHDNumbersTask extends AbstractTask {
         PatientIdentifierType pit_aihd = patientService.getPatientIdentifierTypeByUuid(PatientIdentifierTypes.AIHD_PATIENT_NUMBER.uuid());
         List<List<Object>> patientIds_withIds = as.executeSQL("SELECT patient_id FROM patient_identifier WHERE identifier_type IN (SELECT patient_identifier_type_id FROM patient_identifier_type WHERE uuid = 'b9ba3418-7108-450c-bcff-7bc1ed5c42d1')", true);
         List<List<Object>> patientIds_withouIds = as.executeSQL("SELECT patient_id FROM patient WHERE patient_id NOT IN(select patient_id from patient_identifier where identifier_type=4)", true);
-        if(patientIds_withIds.size() > 0){
-            String prefix = "";
-            String suffix = "";
-            for (List<Object> row : patientIds_withIds) {
-                Patient p = patientService.getPatient((Integer) row.get(0));
-                PatientIdentifier identifiers= p.getPatientIdentifier(pit_aihd);
-                if(identifiers != null && identifiers.getLocation() != null) {
-                    if(identifiers.getIdentifier().endsWith("-")) {
-                        //get that patient and update their identifier
-                        prefix = identifiers.getIdentifier().split("-")[0];
-                        suffix = String.valueOf(identifierList_forPatientsWithId(pit_aihd, patientService, identifiers, prefix) + 1);
-                        String finalSuffixes = finalSuffix(suffix);
-
-                        identifiers.setIdentifier(prefix+"-"+finalSuffixes);
-                    }
-                }
-            }
-        }
         if(patientIds_withouIds.size() > 0) {
 
             String prefix = "";
