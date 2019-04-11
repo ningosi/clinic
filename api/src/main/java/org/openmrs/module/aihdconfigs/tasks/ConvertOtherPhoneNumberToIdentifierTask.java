@@ -60,14 +60,13 @@ public class ConvertOtherPhoneNumberToIdentifierTask extends AbstractTask {
                     PatientIdentifier otherMobileNumberIdentifier = p.getPatientIdentifier(otherPhone);
                     if(otherMobileNumberIdentifier == null) {
 
-                        PatientIdentifier newMobileNumber = new PatientIdentifier();
-                        newMobileNumber.setIdentifier(otherMobileNoAttr.getValue());
-                        newMobileNumber.setIdentifierType(otherPhone);
-                        newMobileNumber.setCreator(Context.getAuthenticatedUser());
-                        newMobileNumber.setDateCreated(new Date());
+                        PatientIdentifier newOtherMobileNumber = new PatientIdentifier();
+                        newOtherMobileNumber.setIdentifier(otherMobileNoAttr.getValue());
+                        newOtherMobileNumber.setIdentifierType(otherPhone);
+                        newOtherMobileNumber.setCreator(Context.getAuthenticatedUser());
+                        newOtherMobileNumber.setDateCreated(new Date());
 
-                        //
-                        p.addIdentifier(newMobileNumber);
+                        p.addIdentifier(newOtherMobileNumber);
                     }
 
                 }
