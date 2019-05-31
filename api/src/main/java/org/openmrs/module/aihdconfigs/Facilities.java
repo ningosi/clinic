@@ -108,4 +108,43 @@ public class Facilities {
             }
         }
     }
+
+    public static void updateLocations(InputStream csvFile){
+        LocationService locationService = Context.getLocationService();
+        String line = "";
+        String cvsSplitBy = ",";
+        String headLine = "";
+        String locationName = "";
+        String county = "";
+        String subCounty = "";
+        String level="";
+        try {
+            BufferedReader br = new BufferedReader(new InputStreamReader(csvFile, "UTF-8"));
+            headLine = br.readLine();
+            while ((line = br.readLine()) != null) {
+                String[] records = line.split(cvsSplitBy);
+                county=records[3];
+                subCounty=records[2];
+                locationName = records[1];
+                level=records[4];
+                if (StringUtils.isNotEmpty(locationName)) {
+                    Location location = locationService.getLocation(locationName);
+                    if (location != null && StringUtils.isNotEmpty(subCounty) && StringUtils.isNotEmpty(county) && StringUtils.isNotEmpty(level)) {
+                        System.out.println("Found all parameters");
+                        location.setAddress15(county);
+                        location.setAddress14(subCounty);
+                        location.setAddress13(level);
+                        locationService.saveLocation(location);
+                    }
+                }
+                else {
+                    System.out.println("Looks like we are empty");
+                }
+            }
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
 }

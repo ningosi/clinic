@@ -56,6 +56,7 @@ public class FormatAIHDNumbersTask extends AbstractTask {
         AdministrationService as = Context.getAdministrationService();
         PatientIdentifierType pit_aihd = patientService.getPatientIdentifierTypeByUuid(PatientIdentifierTypes.AIHD_PATIENT_NUMBER.uuid());
         List<List<Object>> patientIds_withouIds = as.executeSQL("SELECT patient_id FROM patient WHERE patient_id NOT IN(select patient_id from patient_identifier where identifier_type=4)", true);
+
         if(patientIds_withouIds.size() > 0) {
 
             String prefix = "";
