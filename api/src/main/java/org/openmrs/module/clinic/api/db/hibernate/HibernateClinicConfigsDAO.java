@@ -21,7 +21,7 @@ import org.openmrs.module.clinic.api.db.ClinicConfigsDAO;
 /**
  * It is a default implementation of  {@link ClinicConfigsDAO}.
  */
-public class HibernateAihdConfigsDAO implements ClinicConfigsDAO {
+public class HibernateClinicConfigsDAO implements ClinicConfigsDAO {
 	protected final Log log = LogFactory.getLog(this.getClass());
 	
 	private SessionFactory sessionFactory;
