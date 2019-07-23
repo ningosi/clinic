@@ -3,11 +3,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>org.openmrs.module</groupId>
-	<artifactId>aihdconfigs</artifactId>
-	<version>1.0.3-SNAPSHOT</version>
+	<artifactId>clinic</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
-	<name>AIHD Configurations Module</name>
-	<description>The module help configure several metadata for AIHD</description>
+	<name>Clinic Configurations Module</name>
+	<description>The module help configure several metadata for clinic project</description>
 	<url />
 
 	<developers>
@@ -22,10 +22,10 @@
 	</organization>
 
 	<scm>
-		<connection>scm:git:https://github.com/IntelliSOFT-Consulting/AIHD.git</connection>
-		<developerConnection>scm:git:https://github.com/IntelliSOFT-Consulting/AIHD.git</developerConnection>
-		<url>https://github.com/IntelliSOFT-Consulting/AIHD</url>
-		<tag>1.0.1</tag>
+		<connection>scm:git:https://github.com/ningosi/clinic.git</connection>
+		<developerConnection>scm:git:https://github.com/ningosi/clinic.git</developerConnection>
+		<url>https://github.com/ningosi/clinic</url>
+		<tag>HEAD</tag>
 	</scm>
 
 	<modules>

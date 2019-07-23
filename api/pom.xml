@@ -3,14 +3,14 @@
 
 	<parent>
 		<groupId>org.openmrs.module</groupId>
-		<artifactId>aihdconfigs</artifactId>
-		<version>1.0.3-SNAPSHOT</version>
+		<artifactId>clinic</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>aihdconfigs-api</artifactId>
+	<artifactId>clinic-api</artifactId>
 	<packaging>jar</packaging>
-	<name>AIHD Configurations Module API</name>
-	<description>API project for AIHD Configurations</description>
+	<name>Clinic Configurations Module API</name>
+	<description>API project for Clinic Configurations</description>
 
 	<dependencies>
 	

@@ -3,14 +3,14 @@
 
 	<parent>
 		<groupId>org.openmrs.module</groupId>
-		<artifactId>aihdconfigs</artifactId>
-		<version>1.0.3-SNAPSHOT</version>
+		<artifactId>clinic</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>aihdconfigs-omod</artifactId>
 	<packaging>jar</packaging>
-	<name>AIHD Configurations Module OMOD</name>
-	<description>OMOD project for AIHD Configurations</description>
+	<name>Clinic Configurations Module OMOD</name>
+	<description>OMOD project for Clinic Configurations</description>
 
 	<dependencies>
 
