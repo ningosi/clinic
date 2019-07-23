@@ -81,7 +81,7 @@
 
 	<advice>
 		<point>org.openmrs.api.PatientService</point>
-		<class>org.openmrs.module.aihdconfigs.advice.PatientSearchAdviser</class>
+		<class>org.openmrs.module.clinic.advice.PatientSearchAdviser</class>
 	</advice>
 
 </module>

@@ -31,7 +31,7 @@
                 <td valign="top">${ ui.encodeHtmlContent(ui.format(it.mflCode))}</td>
                 <td valign="top" class="adminui-center">
                     <i class="icon-pencil edit-action" title="${ ui.message("Edit")}"
-                       onclick="location.href='${ui.pageLink("aihdconfigs", "accounts/addUserLocationAccount",[personId: it.person.id])}'"></i>
+                       onclick="location.href='${ui.pageLink("clinic", "accounts/addUserLocationAccount",[personId: it.person.id])}'"></i>
                 </td>
             </tr>
         <% } %>

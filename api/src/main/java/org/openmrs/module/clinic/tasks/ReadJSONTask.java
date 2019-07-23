@@ -1,6 +1,6 @@
-package org.openmrs.module.aihdconfigs.tasks;
+package org.openmrs.module.clinic.tasks;
 
-import org.openmrs.module.aihdconfigs.utils.JSONParserUtil;
+import org.openmrs.module.clinic.utils.JSONParserUtil;
 import org.openmrs.scheduler.tasks.AbstractTask;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

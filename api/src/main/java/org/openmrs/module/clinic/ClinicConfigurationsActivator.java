@@ -206,7 +206,7 @@ public class ClinicConfigurationsActivator implements ModuleActivator {
 
 
         } catch (Exception e) {
-            Module mod = ModuleFactory.getModuleById("aihdconfigs");
+            Module mod = ModuleFactory.getModuleById("clinic");
             //ModuleFactory.stopModule(mod);
             throw new RuntimeException("failed to install the common metadata ", e);
         }

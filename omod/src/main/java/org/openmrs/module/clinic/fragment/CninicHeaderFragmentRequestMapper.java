@@ -1,4 +1,4 @@
-package org.openmrs.module.aihdconfigs.fragment;
+package org.openmrs.module.clinic.fragment;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -7,7 +7,7 @@ import org.openmrs.ui.framework.fragment.FragmentRequestMapper;
 import org.springframework.stereotype.Component;
 
 @Component
-public class AihdHeaderFragmentRequestMapper implements FragmentRequestMapper {
+public class CninicHeaderFragmentRequestMapper implements FragmentRequestMapper {
 
     protected final Log log = LogFactory.getLog(getClass());
 
@@ -23,7 +23,7 @@ public class AihdHeaderFragmentRequestMapper implements FragmentRequestMapper {
         if (request.getProviderName().equals("appui")) {
             if (request.getFragmentId().equals("header")) {
                 // change to the custom login provided by the module
-                request.setProviderNameOverride("aihdconfigs");
+                request.setProviderNameOverride("clinic");
                 request.setFragmentIdOverride("aihdHeader");
 
                 log.info(request.toString());

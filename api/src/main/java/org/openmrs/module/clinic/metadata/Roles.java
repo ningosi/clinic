@@ -1,4 +1,4 @@
-package org.openmrs.module.aihdconfigs.metadata;
+package org.openmrs.module.clinic.metadata;
 
 import org.openmrs.module.metadatadeploy.descriptor.PrivilegeDescriptor;
 import org.openmrs.module.metadatadeploy.descriptor.RoleDescriptor;
@@ -11,7 +11,7 @@ public class Roles {
     public static RoleDescriptor CLINICIANS = new RoleDescriptor() {
         @Override
         public String role() {
-            return "aihdconfigs Role: Clinician";
+            return "clinic Role: Clinician";
         }
 
         @Override
@@ -64,7 +64,7 @@ public class Roles {
     public static RoleDescriptor SYSTEM_ADMIN = new RoleDescriptor() {
         @Override
         public String role() {
-            return "aihdconfigs Role: System admin";
+            return "clinic Role: System admin";
         }
 
         @Override

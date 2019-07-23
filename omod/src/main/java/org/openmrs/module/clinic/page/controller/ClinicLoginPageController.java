@@ -11,32 +11,15 @@
  *
  * Copyright (C) OpenMRS, LLC.  All Rights Reserved.
  */
-package org.openmrs.module.aihdconfigs.page.controller;
-
-import static org.openmrs.module.referenceapplication.ReferenceApplicationWebConstants.COOKIE_NAME_LAST_SESSION_LOCATION;
-import static org.openmrs.module.referenceapplication.ReferenceApplicationWebConstants.REQUEST_PARAMETER_NAME_REDIRECT_URL;
-import static org.openmrs.module.referenceapplication.ReferenceApplicationWebConstants.SESSION_ATTRIBUTE_REDIRECT_URL;
-
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import javax.servlet.http.HttpServletRequest;
+package org.openmrs.module.clinic.page.controller;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.Location;
-import org.openmrs.User;
 import org.openmrs.api.LocationService;
 import org.openmrs.api.context.Context;
 import org.openmrs.api.context.ContextAuthenticationException;
-import org.openmrs.api.context.Daemon;
-import org.openmrs.module.aihdconfigs.AihdUser;
 import org.openmrs.module.appframework.service.AppFrameworkService;
 import org.openmrs.module.appui.UiSessionContext;
 import org.openmrs.module.emrapi.EmrApiConstants;
@@ -46,17 +29,25 @@ import org.openmrs.ui.framework.UiUtils;
 import org.openmrs.ui.framework.annotation.SpringBean;
 import org.openmrs.ui.framework.page.PageModel;
 import org.openmrs.ui.framework.page.PageRequest;
-import org.openmrs.web.user.CurrentUsers;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.List;
+
+import static org.openmrs.module.referenceapplication.ReferenceApplicationWebConstants.COOKIE_NAME_LAST_SESSION_LOCATION;
+import static org.openmrs.module.referenceapplication.ReferenceApplicationWebConstants.REQUEST_PARAMETER_NAME_REDIRECT_URL;
+import static org.openmrs.module.referenceapplication.ReferenceApplicationWebConstants.SESSION_ATTRIBUTE_REDIRECT_URL;
+
 /**
  * Spring MVC controller that takes over /login.htm and processes requests to authenticate a user
  */
 @Controller
-public class AihdLoginPageController {
+public class ClinicLoginPageController {
 
     //see TRUNK-4536 for details why we need this
     private static final String GET_LOCATIONS = "Get Locations";
@@ -68,7 +59,7 @@ public class AihdLoginPageController {
 
     @RequestMapping("/"+"aihdLogin.htm")
     public String overrideLoginpage() {
-        return "forward:/" + "aihdconfigs" + "/" + "aihdLogin" + ".page";
+        return "forward:/" + "clinic" + "/" + "aihdLogin" + ".page";
     }
 
     /**
@@ -108,7 +99,7 @@ public class AihdLoginPageController {
             Context.addProxyPrivilege(VIEW_LOCATIONS);
             Context.addProxyPrivilege(GET_LOCATIONS);
             List<Location> allLocations = locationService.getAllLocations();
-            allLocations.removeAll(excludeThisAtLogin());
+            //allLocations.removeAll(excludeThisAtLogin());
             model.addAttribute("locations", allLocations);
             lastSessionLocation = locationService.getLocation(Integer.valueOf(lastSessionLocationId));
         }
@@ -199,12 +190,6 @@ public class AihdLoginPageController {
                     if (log.isDebugEnabled()) {
                         log.debug("User has successfully authenticated");
                     }
-                    AihdUser aihdUser = new AihdUser();
-                    aihdUser.setPerson(Context.getAuthenticatedUser().getPerson());
-
-                    if(aihdUser.getLocation() != null) {
-                        sessionLocation = aihdUser.getLocation();
-                    }
 
                     sessionContext.setSessionLocation(sessionLocation);
 
@@ -279,14 +264,4 @@ public class AihdLoginPageController {
         return null;
     }
 
-    public List<Location> excludeThisAtLogin(){
-        List<Location> toExclude = new ArrayList<Location>();
-        LocationService service = Context.getLocationService();
-        List<String> unUsedLocations = Arrays.asList("Amani Hospital", "Registration Desk", "Pharmacy", "Inpatient Ward", "Isolation Ward", "Laboratory", "Outpatient Clinic", "Unknown Location");
-        for(String s: unUsedLocations){
-            toExclude.add(service.getLocation(s));
-        }
-        return toExclude;
-
-    }
 }

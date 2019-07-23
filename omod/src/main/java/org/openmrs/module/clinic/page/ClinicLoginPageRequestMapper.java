@@ -1,4 +1,4 @@
-package org.openmrs.module.aihdconfigs.page;
+package org.openmrs.module.clinic.page;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -7,7 +7,7 @@ import org.openmrs.ui.framework.page.PageRequestMapper;
 import org.springframework.stereotype.Component;
 
 @Component
-public class AihdLoginPageRequestMapper implements PageRequestMapper {
+public class ClinicLoginPageRequestMapper implements PageRequestMapper {
 
     protected final Log log = LogFactory.getLog(getClass());
     /**
@@ -22,8 +22,8 @@ public class AihdLoginPageRequestMapper implements PageRequestMapper {
         if (request.getProviderName().equals("referenceapplication")) {
             if (request.getPageName().equals("login")) {
                 // change to the custom login provided by the module
-                request.setProviderNameOverride("aihdconfigs");
-                request.setPageNameOverride("aihdLogin");
+                request.setProviderNameOverride("clinic");
+                request.setPageNameOverride("clinicLogin");
 
                 log.info(request.toString());
                 return true;

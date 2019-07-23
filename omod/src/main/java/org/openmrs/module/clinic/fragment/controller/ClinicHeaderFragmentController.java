@@ -1,4 +1,4 @@
-package org.openmrs.module.aihdconfigs.fragment.controller;
+package org.openmrs.module.clinic.fragment.controller;
 
 import org.openmrs.Location;
 import org.openmrs.api.context.Context;
@@ -13,10 +13,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
 
-public class AihdHeaderFragmentController {
+public class ClinicHeaderFragmentController {
 
     private static final String GET_LOCATIONS = "Get Locations";
 
@@ -37,7 +35,7 @@ public class AihdHeaderFragmentController {
             List<Extension> userAccountMenuItems = appFrameworkService.getExtensionsForCurrentUser(
                     AppUiExtensions.HEADER_USER_ACCOUNT_MENU_ITEMS_EXTENSION);
             fragmentModel.addAttribute("userAccountMenuItems", userAccountMenuItems);
-            //Location location = Context.getLocationService().getLocationByUuid(Context.getAdministrationService().getGlobalProperty("aihdconfigs.facilityName"));
+            //Location location = Context.getLocationService().getLocationByUuid(Context.getAdministrationService().getGlobalProperty("clinic.facilityName"));
             //fragmentModel.addAttribute("facility", location);
         }
         finally {

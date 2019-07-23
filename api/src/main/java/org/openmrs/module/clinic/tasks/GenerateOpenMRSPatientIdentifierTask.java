@@ -1,4 +1,4 @@
-package org.openmrs.module.aihdconfigs.tasks;
+package org.openmrs.module.clinic.tasks;
 
 import org.openmrs.Patient;
 import org.openmrs.PatientIdentifier;

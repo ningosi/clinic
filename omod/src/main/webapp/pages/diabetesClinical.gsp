@@ -1,8 +1,8 @@
 <%
     ui.includeFragment("appui", "standardEmrIncludes")
-    ui.includeJavascript("aihdconfigs", "bootstrap.min.js")
+    ui.includeJavascript("clinic", "bootstrap.min.js")
     ui.includeCss("referenceapplication", "login.css")
-    ui.includeCss("aihdconfigs", "bootstrap.min.css")
+    ui.includeCss("clinic", "bootstrap.min.css")
 
     def now = new Date()
     def year = now.getAt(Calendar.YEAR);
@@ -43,7 +43,7 @@ ${ ui.includeFragment("referenceapplication", "infoAndErrorMessages") }
 
 <div class="container" style="height: 100%; width: 100%; padding: 0">
     <section style="height: 100%">
-        <iframe src="${ui.resourceLink("aihdconfigs", "documents/DiabetesClinical.pdf")}" style= "height:100%; width:100%"></iframe>
+        <iframe src="${ui.resourceLink("clinic", "documents/DiabetesClinical.pdf")}" style= "height:100%; width:100%"></iframe>
     </section>
 </div>
 </body>

@@ -15,7 +15,7 @@
         return it
     }
 
-    def logoIconUrl = addContextPath(configSettings?."logo-icon-url") ?: ui.resourceLink("aihdconfigs", "images/banners/city_county_logo.jpg")
+    def logoIconUrl = addContextPath(configSettings?."logo-icon-url") ?: ui.resourceLink("clinic", "images/banners/city_county_logo.jpg")
     def logoLinkUrl = addContextPath(configSettings?."logo-link-url") ?: "/${org.openmrs.ui.framework.WebConstants.CONTEXT_PATH}"
 
     def multipleLoginLocations = (loginLocations.size > 1);
@@ -122,19 +122,19 @@
                                                                          style="display: none;"></i>
             <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
                 <li>
-                    <a href="${ui.pageLink("aihdconfigs", "terms")}" target="_blank">Terms & Conditions</a>
+                    <a href="${ui.pageLink("clinic", "terms")}" target="_blank">Terms & Conditions</a>
                 </li>
                 <li>
-                    <a href="${ui.pageLink("aihdconfigs", "sops")}" target="_blank">SOPs & Job Aids</a>
+                    <a href="${ui.pageLink("clinic", "sops")}" target="_blank">SOPs & Job Aids</a>
                 </li>
                 <li>
-                    <a href="${ui.pageLink("aihdconfigs", "faqs")}" target="_blank">FAQs</a>
+                    <a href="${ui.pageLink("clinic", "faqs")}" target="_blank">FAQs</a>
                 </li>
                 <li>
-                    <a href="${ui.pageLink("aihdconfigs", "cardiovascular")}" target="_blank">Cardiovascular Guidelines</a>
+                    <a href="${ui.pageLink("clinic", "cardiovascular")}" target="_blank">Cardiovascular Guidelines</a>
                 </li>
                 <li>
-                    <a href="${ui.pageLink("aihdconfigs", "diabetesClinical")}" target="_blank">Diabetes Guidelines</a>
+                    <a href="${ui.pageLink("clinic", "diabetesClinical")}" target="_blank">Diabetes Guidelines</a>
                 </li>
             </ul>
         </li>

@@ -89,8 +89,8 @@ public class SendReminderMessage {
 
         String message = "";
         Set<Patient> results = missedAppointments(context);
-        PersonAttributeType attributeType = MetadataUtils.existing(PersonAttributeType.class, PersonAttributeTypes.TELEPHONE_NUMBER.uuid());
-        PersonAttributeType langAttributeType = MetadataUtils.existing(PersonAttributeType.class, PersonAttributeTypes.USER_LANGUAGE.uuid());
+        PersonAttributeType attributeType = MetadataUtils.existing(PersonAttributeType.class, PersonAttributeTypes.NEXT_OF_KIN_TELEPHONE.uuid());
+        PersonAttributeType langAttributeType = MetadataUtils.existing(PersonAttributeType.class, PersonAttributeTypes.NEXT_OF_KIN_EMAIL.uuid());
 
         for (Patient patient : results) {
             String name = String.format("%s %s", patient.getGivenName(), patient.getFamilyName());

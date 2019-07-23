@@ -1,4 +1,4 @@
-package org.openmrs.module.aihdconfigs.metadata;
+package org.openmrs.module.clinic.metadata;
 
 import org.openmrs.module.metadatadeploy.descriptor.PrivilegeDescriptor;
 import org.openmrs.util.PrivilegeConstants;

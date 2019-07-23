@@ -13,7 +13,7 @@
         <preConditions onFail="MARK_RAN">
             <sqlCheck expectedResult="0">
                 SELECT COUNT(*) FROM scheduler_task_config
-                WHERE schedulable_class = 'org.openmrs.module.aihdconfigs.tasks.SavePatientAttachmentToDbTask'
+                WHERE schedulable_class = 'org.openmrs.module.clinic.tasks.SavePatientAttachmentToDbTask'
                 And name = 'Auto Save Patient Attachment to DB Task'
             </sqlCheck>
         </preConditions>
@@ -23,7 +23,7 @@
             <column name="description"
                     value="Scan through all attachments send via phone and save them to DB to be used by attachment module"/>
             <column name="schedulable_class"
-                    value="org.openmrs.module.aihdconfigs.tasks.SavePatientAttachmentToDbTask"/>
+                    value="org.openmrs.module.clinic.tasks.SavePatientAttachmentToDbTask"/>
             <column name="start_time_pattern" value="MM/dd/yyyy HH:mm:ss"/>
             <column name="start_time" valueDate="2018-01-20T23:59:59"/>
             <column name="repeat_interval" value="30"/>
@@ -38,7 +38,7 @@
         <preConditions onFail="MARK_RAN">
             <sqlCheck expectedResult="0">
                 SELECT COUNT(*) FROM scheduler_task_config
-                WHERE schedulable_class = 'org.openmrs.module.aihdconfigs.tasks.ExtractPatientInformationFromImageTask'
+                WHERE schedulable_class = 'org.openmrs.module.clinic.tasks.ExtractPatientInformationFromImageTask'
                 And name = 'Extract Patient Information From Image Task'
             </sqlCheck>
         </preConditions>
@@ -48,7 +48,7 @@
             <column name="description"
                     value="Scan through all attachments and extract patient observations and save them into the database"/>
             <column name="schedulable_class"
-                    value="org.openmrs.module.aihdconfigs.tasks.ExtractPatientInformationFromImageTask"/>
+                    value="org.openmrs.module.clinic.tasks.ExtractPatientInformationFromImageTask"/>
             <column name="start_time_pattern" value="MM/dd/yyyy HH:mm:ss"/>
             <column name="start_time" valueDate="2018-01-20T23:59:59"/>
             <column name="repeat_interval" value="30"/>
@@ -77,7 +77,7 @@
         <preConditions onFail="MARK_RAN">
             <sqlCheck expectedResult="0">
                 SELECT COUNT(*) FROM scheduler_task_config
-                WHERE schedulable_class = 'org.openmrs.module.aihdconfigs.tasks.ReadJSONTask';
+                WHERE schedulable_class = 'org.openmrs.module.clinic.tasks.ReadJSONTask';
             </sqlCheck>
         </preConditions>
         <comment>Inserting JSON reader task to DB Task 'schedule_task_config' table</comment>
@@ -85,7 +85,7 @@
             <column name="name" value="Read JSON files from OpenMRS directory"/>
             <column name="description"
                     value="Scan through all files from {OpenMRSdir}/data_files and extract information and save them to the database"/>
-            <column name="schedulable_class" value="org.openmrs.module.aihdconfigs.tasks.ReadJSONTask"/>
+            <column name="schedulable_class" value="org.openmrs.module.clinic.tasks.ReadJSONTask"/>
             <column name="start_time_pattern" value="MM/dd/yyyy HH:mm:ss"/>
             <column name="start_time" valueDate="2018-05-07T15:59:59"/>
             <column name="repeat_interval" value="30"/>
@@ -100,7 +100,7 @@
         <preConditions onFail="MARK_RAN">
             <sqlCheck expectedResult="0">
                 SELECT COUNT(*) FROM scheduler_task_config
-                WHERE schedulable_class = 'org.openmrs.module.aihdconfigs.tasks.GenerateOpenMRSPatientIdentifierTask'
+                WHERE schedulable_class = 'org.openmrs.module.clinic.tasks.GenerateOpenMRSPatientIdentifierTask'
                 And name = 'Automation of OpenMRS Ids'
             </sqlCheck>
         </preConditions>
@@ -108,7 +108,7 @@
         <insert tableName="scheduler_task_config">
             <column name="name" value="Automation of OpenMRS Ids" />
             <column name="description" value="Scan through all and flag out those who are missing the OpenMRS ID and create one for them" />
-            <column name="schedulable_class" value="org.openmrs.module.aihdconfigs.tasks.GenerateOpenMRSPatientIdentifierTask" />
+            <column name="schedulable_class" value="org.openmrs.module.clinic.tasks.GenerateOpenMRSPatientIdentifierTask" />
             <column name="start_time_pattern" value="MM/dd/yyyy HH:mm:ss" />
             <column name="start_time" valueDate="2018-01-20T23:59:59" />
             <column name="repeat_interval" value="90" />
@@ -123,7 +123,7 @@
         <preConditions onFail="MARK_RAN">
             <sqlCheck expectedResult="0">
                 SELECT COUNT(*) FROM scheduler_task_config
-                WHERE schedulable_class = 'org.openmrs.module.aihdconfigs.tasks.FormatAIHDNumbersTask'
+                WHERE schedulable_class = 'org.openmrs.module.clinic.tasks.FormatAIHDNumbersTask'
                 And name = 'Format AIHD Numbers'
             </sqlCheck>
         </preConditions>
@@ -131,7 +131,7 @@
         <insert tableName="scheduler_task_config">
             <column name="name" value="Format AIHD Numbers" />
             <column name="description" value="Scan through all and flag out those who are missing proper format of AIHD and create one for them" />
-            <column name="schedulable_class" value="org.openmrs.module.aihdconfigs.tasks.FormatAIHDNumbersTask" />
+            <column name="schedulable_class" value="org.openmrs.module.clinic.tasks.FormatAIHDNumbersTask" />
             <column name="start_time_pattern" value="MM/dd/yyyy HH:mm:ss" />
             <column name="start_time" valueDate="2018-01-20T23:59:59" />
             <column name="repeat_interval" value="30" />
@@ -146,7 +146,7 @@
         <preConditions onFail="MARK_RAN">
             <sqlCheck expectedResult="0">
                 SELECT COUNT(*) FROM scheduler_task_config
-                WHERE schedulable_class = 'org.openmrs.module.aihdconfigs.tasks.CopyFilesToCorrectDirectoryTask'
+                WHERE schedulable_class = 'org.openmrs.module.clinic.tasks.CopyFilesToCorrectDirectoryTask'
                 And name = 'Copy files'
             </sqlCheck>
         </preConditions>
@@ -154,7 +154,7 @@
         <insert tableName="scheduler_task_config">
             <column name="name" value="Copy files" />
             <column name="description" value="Scan through the out folder then copy all the files to the OpenMRS folder for processing" />
-            <column name="schedulable_class" value="org.openmrs.module.aihdconfigs.tasks.CopyFilesToCorrectDirectoryTask" />
+            <column name="schedulable_class" value="org.openmrs.module.clinic.tasks.CopyFilesToCorrectDirectoryTask" />
             <column name="start_time_pattern" value="MM/dd/yyyy HH:mm:ss" />
             <column name="start_time" valueDate="2018-01-20T23:59:59" />
             <column name="repeat_interval" value="30" />
@@ -169,7 +169,7 @@
         <preConditions onFail="MARK_RAN">
             <sqlCheck expectedResult="0">
                 SELECT COUNT(*) FROM scheduler_task_config
-                WHERE schedulable_class = 'org.openmrs.module.aihdconfigs.tasks.CorrectLocationsForIdentifiersTask'
+                WHERE schedulable_class = 'org.openmrs.module.clinic.tasks.CorrectLocationsForIdentifiersTask'
                 And name = 'Correct location'
             </sqlCheck>
         </preConditions>
@@ -177,7 +177,7 @@
         <insert tableName="scheduler_task_config">
             <column name="name" value="Correct location" />
             <column name="description" value="Map the correct locations to the identifiers" />
-            <column name="schedulable_class" value="org.openmrs.module.aihdconfigs.tasks.CorrectLocationsForIdentifiersTask" />
+            <column name="schedulable_class" value="org.openmrs.module.clinic.tasks.CorrectLocationsForIdentifiersTask" />
             <column name="start_time_pattern" value="MM/dd/yyyy HH:mm:ss" />
             <column name="start_time" valueDate="2018-01-20T23:59:59" />
             <column name="repeat_interval" value="30" />
@@ -192,7 +192,7 @@
         <preConditions onFail="MARK_RAN">
             <sqlCheck expectedResult="0">
                 SELECT COUNT(*) FROM scheduler_task_config
-                WHERE schedulable_class = 'org.openmrs.module.aihdconfigs.messaging.tasks.SendReminderMessageTask'
+                WHERE schedulable_class = 'org.openmrs.module.clinic.messaging.tasks.SendReminderMessageTask'
             </sqlCheck>
         </preConditions>
         <comment>Inserting SMS reminder scheduler into 'schedule_task_config' table</comment>
@@ -200,7 +200,7 @@
             <column name="name" value="Send SMS appointment remindrs"/>
             <column name="description"
                     value="Go through every patient and determine if they have missed appointments and send a reminder"/>
-            <column name="schedulable_class" value="org.openmrs.module.aihdconfigs.messaging.tasks.SendReminderMessageTask"/>
+            <column name="schedulable_class" value="org.openmrs.module.clinic.messaging.tasks.SendReminderMessageTask"/>
             <column name="start_time_pattern" value="MM/dd/yyyy HH:mm:ss"/>
             <column name="start_time" valueDate="2018-05-07T15:59:59"/>
             <column name="repeat_interval" value="30"/>
@@ -214,7 +214,7 @@
         <preConditions onFail="MARK_RAN">
             <sqlCheck expectedResult="1">
                 SELECT COUNT(*) FROM scheduler_task_config
-                WHERE schedulable_class = 'org.openmrs.module.aihdconfigs.messaging.tasks.SendReminderMessageTask'
+                WHERE schedulable_class = 'org.openmrs.module.clinic.messaging.tasks.SendReminderMessageTask'
             </sqlCheck>
         </preConditions>
         <comment>Update scheduler repeat interval</comment>
@@ -228,7 +228,7 @@
         <preConditions onFail="MARK_RAN">
             <sqlCheck expectedResult="0">
                 SELECT COUNT(*) FROM scheduler_task_config
-                WHERE schedulable_class = 'org.openmrs.module.aihdconfigs.tasks.ConvertPatientPhoneNumberIntoIdentifierTask'
+                WHERE schedulable_class = 'org.openmrs.module.clinic.tasks.ConvertPatientPhoneNumberIntoIdentifierTask'
                 And name = 'Phone number into identifier'
             </sqlCheck>
         </preConditions>
@@ -238,7 +238,7 @@
             <column name="description"
                     value="Convert patient phone number into an identifier"/>
             <column name="schedulable_class"
-                    value="org.openmrs.module.aihdconfigs.tasks.ConvertPatientPhoneNumberIntoIdentifierTask" />
+                    value="org.openmrs.module.clinic.tasks.ConvertPatientPhoneNumberIntoIdentifierTask" />
             <column name="start_time_pattern" value="MM/dd/yyyy HH:mm:ss"/>
             <column name="start_time" valueDate="2019-03-20T23:59:59"/>
             <column name="repeat_interval" value="30"/>
@@ -253,7 +253,8 @@
         <preConditions onFail="MARK_RAN">
             <sqlCheck expectedResult="0">
                 SELECT COUNT(*) FROM scheduler_task_config
-                WHERE schedulable_class = 'org.openmrs.module.aihdconfigs.tasks.ConvertNationalIdFromPersonAttributeToPatientIdentifier'
+                WHERE schedulable_class =
+                'org.openmrs.module.clinic.tasks.ConvertNationalIdFromPersonAttributeToPatientIdentifier'
                 And name = 'National Id into identifier'
             </sqlCheck>
         </preConditions>
@@ -263,7 +264,7 @@
             <column name="description"
                     value="Convert patient national Id number into an identifier"/>
             <column name="schedulable_class"
-                    value="org.openmrs.module.aihdconfigs.tasks.ConvertNationalIdFromPersonAttributeToPatientIdentifier" />
+                    value="org.openmrs.module.clinic.tasks.ConvertNationalIdFromPersonAttributeToPatientIdentifier" />
             <column name="start_time_pattern" value="MM/dd/yyyy HH:mm:ss"/>
             <column name="start_time" valueDate="2019-03-20T23:59:59"/>
             <column name="repeat_interval" value="30"/>
@@ -278,7 +279,7 @@
         <preConditions onFail="MARK_RAN">
             <sqlCheck expectedResult="0">
                 SELECT COUNT(*) FROM scheduler_task_config
-                WHERE schedulable_class = 'org.openmrs.module.aihdconfigs.tasks.TagLocationsToAllIdentifiersTasks'
+                WHERE schedulable_class = 'org.openmrs.module.clinic.tasks.TagLocationsToAllIdentifiersTasks'
                 And name = 'Attach location to identifiers'
             </sqlCheck>
         </preConditions>
@@ -288,7 +289,7 @@
             <column name="description"
                     value="Attach location to identifiers"/>
             <column name="schedulable_class"
-                    value="org.openmrs.module.aihdconfigs.tasks.TagLocationsToAllIdentifiersTasks" />
+                    value="org.openmrs.module.clinic.tasks.TagLocationsToAllIdentifiersTasks" />
             <column name="start_time_pattern" value="MM/dd/yyyy HH:mm:ss"/>
             <column name="start_time" valueDate="2019-03-20T23:59:59"/>
             <column name="repeat_interval" value="30"/>
@@ -329,7 +330,7 @@
         <preConditions onFail="MARK_RAN">
             <sqlCheck expectedResult="0">
                 SELECT COUNT(*) FROM scheduler_task_config
-                WHERE schedulable_class = 'org.openmrs.module.aihdconfigs.tasks.ConvertOtherPhoneNumberToIdentifierTask'
+                WHERE schedulable_class = 'org.openmrs.module.clinic.tasks.ConvertOtherPhoneNumberToIdentifierTask'
                 And name = 'Other Phone number into identifier'
             </sqlCheck>
         </preConditions>
@@ -339,7 +340,7 @@
             <column name="description"
                     value="Convert patient other phone number into an identifier"/>
             <column name="schedulable_class"
-                    value="org.openmrs.module.aihdconfigs.tasks.ConvertOtherPhoneNumberToIdentifierTask" />
+                    value="org.openmrs.module.clinic.tasks.ConvertOtherPhoneNumberToIdentifierTask" />
             <column name="start_time_pattern" value="MM/dd/yyyy HH:mm:ss"/>
             <column name="start_time" valueDate="2019-03-20T23:59:59"/>
             <column name="repeat_interval" value="30"/>

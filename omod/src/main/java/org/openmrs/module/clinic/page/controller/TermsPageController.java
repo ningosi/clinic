@@ -11,40 +11,17 @@
  *
  * Copyright (C) OpenMRS, LLC.  All Rights Reserved.
  */
-package org.openmrs.module.aihdconfigs.page.controller;
+package org.openmrs.module.clinic.page.controller;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.openmrs.Location;
-import org.openmrs.api.LocationService;
-import org.openmrs.api.context.Context;
-import org.openmrs.api.context.ContextAuthenticationException;
-import org.openmrs.module.aihdconfigs.AihdUser;
 import org.openmrs.module.appframework.service.AppFrameworkService;
-import org.openmrs.module.appui.UiSessionContext;
-import org.openmrs.module.emrapi.EmrApiConstants;
-import org.openmrs.module.referenceapplication.ReferenceApplicationConstants;
-import org.openmrs.module.referenceapplication.ReferenceApplicationWebConstants;
 import org.openmrs.ui.framework.UiUtils;
 import org.openmrs.ui.framework.annotation.SpringBean;
 import org.openmrs.ui.framework.page.PageModel;
 import org.openmrs.ui.framework.page.PageRequest;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-
-import javax.servlet.http.HttpServletRequest;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import static org.openmrs.module.referenceapplication.ReferenceApplicationWebConstants.COOKIE_NAME_LAST_SESSION_LOCATION;
-import static org.openmrs.module.referenceapplication.ReferenceApplicationWebConstants.REQUEST_PARAMETER_NAME_REDIRECT_URL;
-import static org.openmrs.module.referenceapplication.ReferenceApplicationWebConstants.SESSION_ATTRIBUTE_REDIRECT_URL;
 
 /**
  * Spring MVC controller for /terms.htm page
@@ -62,7 +39,7 @@ public class TermsPageController {
 
     @RequestMapping("/"+"terms.htm")
     public String overrideLoginpage() {
-        return "forward:/" + "aihdconfigs" + "/" + "terms" + ".page";
+        return "forward:/" + "clinic" + "/" + "terms" + ".page";
     }
 
     /**

@@ -30,7 +30,7 @@ public class HtmlFormsInitializer implements Initializer {
 
     protected static final Log log = LogFactory.getLog(HtmlFormsInitializer.class);
 
-    protected static final String providerName = "aihdconfigs";
+    protected static final String providerName = "clinic";
     protected static final String formsPath = "htmlforms/";
 
     /**
