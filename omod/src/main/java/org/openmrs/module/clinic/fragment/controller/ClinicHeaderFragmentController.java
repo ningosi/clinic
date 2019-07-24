@@ -7,12 +7,9 @@ import org.openmrs.module.appframework.service.AppFrameworkService;
 import org.openmrs.module.appui.AppUiExtensions;
 import org.openmrs.ui.framework.annotation.SpringBean;
 import org.openmrs.ui.framework.fragment.FragmentModel;
-import org.openmrs.api.LocationService;
 
 import java.util.List;
 import java.util.Map;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 public class ClinicHeaderFragmentController {
 
@@ -26,7 +23,6 @@ public class ClinicHeaderFragmentController {
             Context.addProxyPrivilege(VIEW_LOCATIONS);
              
             List<Location> allLocations = Context.getLocationService().getAllLocations();
-            allLocations.removeAll(excludeLocationsFromDashBoard());
             fragmentModel.addAttribute("loginLocations", allLocations);
 
             List<Extension> exts = appFrameworkService.getExtensionsForCurrentUser(AppUiExtensions.HEADER_CONFIG_EXTENSION);
@@ -35,23 +31,10 @@ public class ClinicHeaderFragmentController {
             List<Extension> userAccountMenuItems = appFrameworkService.getExtensionsForCurrentUser(
                     AppUiExtensions.HEADER_USER_ACCOUNT_MENU_ITEMS_EXTENSION);
             fragmentModel.addAttribute("userAccountMenuItems", userAccountMenuItems);
-            //Location location = Context.getLocationService().getLocationByUuid(Context.getAdministrationService().getGlobalProperty("clinic.facilityName"));
-            //fragmentModel.addAttribute("facility", location);
         }
         finally {
             Context.removeProxyPrivilege(GET_LOCATIONS);
             Context.removeProxyPrivilege(VIEW_LOCATIONS);
         }
-    }
-
-    public List<Location> excludeLocationsFromDashBoard(){
-        List<Location> toExclude = new ArrayList<Location>();
-        LocationService service = Context.getLocationService();
-        List<String> unUsedLocations = Arrays.asList("Amani Hospital", "Registration Desk", "Pharmacy", "Inpatient Ward", "Isolation Ward", "Laboratory", "Outpatient Clinic", "Unknown Location");
-        for(String s: unUsedLocations){
-            toExclude.add(service.getLocation(s));
-        }
-        return toExclude;
-
     }
 }

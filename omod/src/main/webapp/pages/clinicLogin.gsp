@@ -1,8 +1,8 @@
 <%
     ui.includeFragment("appui", "standardEmrIncludes")
-    ui.includeJavascript("aihdconfigs", "bootstrap.min.js")
+    ui.includeJavascript("clinic", "bootstrap.min.js")
     ui.includeCss("referenceapplication", "login.css")
-    ui.includeCss("aihdconfigs", "bootstrap.min.css")
+    ui.includeCss("clinic", "bootstrap.min.css")
 
     def now = new Date()
     def year = now.getAt(Calendar.YEAR);
@@ -57,41 +57,6 @@
     .imgcontainer {
         text-align: center;
         margin: 24px 0 12px 0;
-    }
-
-    .container {
-        padding: 16px;
-    }
-
-    .logo {
-        margin: 0px;
-        text-align: center;
-    }
-
-    #error-message {
-        color: #B53D3D;
-        text-align: center;
-    }
-
-    .footer {
-        float: left;
-        margin: 0px 15px;
-        width: 80%;
-        display: inline-block;
-        font-size: 0.7em;
-        color: #808080;
-    }
-
-    .footer .left_al {
-        float: left;
-    }
-
-    .footer .right_al {
-        float: right;
-    }
-
-    .footer .center_al {
-        float: center;
     }
 
     .footer a {
@@ -195,57 +160,6 @@
         margin-left: 8%;
     }
 
-    #county-logo {
-        margin-left: 0;
-        padding-top: 0;
-        height: 170px;
-        width: auto;
-    }
-
-    #bmz-logo img {
-        height: 120px;
-        width: 200px;
-    }
-
-    #bmz-logo {
-        width: auto;
-        float: left;
-        padding: 5px;
-    }
-
-
-    #malteser-logo img {
-        width: auto;
-        float: left;
-        border-right-style: solid;
-        border-right-width: 0;
-        border-right-color: #e5e5e5;
-        padding: 0;
-        margin-top: 5%;
-    }
-
-    #aihd-logo img {
-        float: left;
-        padding: 0;
-        height: 110px;
-        width: 180px;
-    }
-
-    #intellisoft-logo img {
-        height: 90px;
-        width: 150px;
-        margin-top: 5%;
-    }
-
-    .partnerLogo {
-        text-align: center;
-    }
-    .footerLinks {
-        text-align: center;
-    }
-    .partnersRow{
-        margin-left: 4%;
-    }
     </style>
 </head>
 
@@ -407,10 +321,10 @@ ${ui.includeFragment("referenceapplication", "infoAndErrorMessages")}
     <section>
         <div class="page-header" style="text-align: center;float: none !important;">
             <a href="${ui.pageLink("referenceapplication", "home")}">
-                <img src="${ui.resourceLink("aihdconfigs", "images/banners/city_county_logo.jpg")}" id="county-logo"/>
+                <img src="${ui.resourceLink("clinic", "images/banners/city_county_logo.jpg")}" id="county-logo"/>
             </a>
 
-            <h1 style="text-align: center;">NAIROBI COUNTY NCD UHAI EMS</h1>
+            <h1 style="text-align: center;">Doctor's Murila Othorpedic Clinic - Nairobi Hospital</h1>
 
             <div class="clearfix"></div>
         </div>
@@ -472,7 +386,7 @@ ${ui.includeFragment("referenceapplication", "infoAndErrorMessages")}
                         <label class="col-md-4 control-label"></label>
 
                         <div class="col-md-8">
-                            <span><a href="${ui.pageLink("aihdconfigs", "terms")}"
+                            <span><a href="${ui.pageLink("clinic", "terms")}"
                                      target="_blank">I have and understood the terms and conditions</a>
                             </span> <br>
                             <span id="tnc_notification" style="color:red; font-size:18;"></span>
@@ -496,41 +410,6 @@ ${ui.includeFragment("referenceapplication", "infoAndErrorMessages")}
             </div>
         </div>
 
-        <div class="row partnersRow">
-            <div class="col-md-3 partnerLogo" id="malteser-logo">
-                <img src="${ui.resourceLink("aihdconfigs", "svg/malteser_logo.svg")}" height="95px"/>
-            </div>
-
-            <div class="col-md-3 partnerLogo" id="bmz-logo">
-                <img src="${ui.resourceLink("aihdconfigs", "images/BMZ.jpg")}" height="125px"/>
-            </div>
-
-            <div class="col-md-3 partnerLogo" id="aihd-logo">
-                <img src="${ui.resourceLink("aihdconfigs", "images/aihd.png")}"/>
-            </div>
-
-            <div class="col-md-3 partnerLogo" id="intellisoft-logo">
-                <img src="${ui.resourceLink("aihdconfigs", "images/IntelliSOFT.png")}"/>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-3 footerLinks">
-                <a href="https://ncdems.on.spiceworks.com/portal/tickets" target="_blank">HelpDesk</a>
-            </div>
-
-            <div class="col-md-3 footerLinks">
-                <a href="${ui.pageLink("aihdconfigs", "terms")}" target="_blank">Terms & Conditions</a>
-            </div>
-
-            <div class="col-md-3 footerLinks">
-                <a href="${ui.pageLink("aihdconfigs", "sops")}" target="_blank">SOPs & Job Aids</a>
-            </div>
-
-            <div class="col-md-3 footerLinks">
-                <a href="${ui.pageLink("aihdconfigs", "faqs")}" target="_blank">FAQs</a>
-            </div>
-        </div>
     </section>
 </div>
 

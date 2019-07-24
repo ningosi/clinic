@@ -57,9 +57,9 @@ public class ClinicLoginPageController {
 
     protected final Log log = LogFactory.getLog(getClass());
 
-    @RequestMapping("/"+"aihdLogin.htm")
+    @RequestMapping("/"+"clinicLogin.htm")
     public String overrideLoginpage() {
-        return "forward:/" + "clinic" + "/" + "aihdLogin" + ".page";
+        return "forward:/" + "clinic" + "/" + "clinicLogin" + ".page";
     }
 
     /**

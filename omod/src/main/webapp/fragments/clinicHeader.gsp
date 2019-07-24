@@ -15,7 +15,6 @@
         return it
     }
 
-    def logoIconUrl = addContextPath(configSettings?."logo-icon-url") ?: ui.resourceLink("clinic", "images/banners/city_county_logo.jpg")
     def logoLinkUrl = addContextPath(configSettings?."logo-link-url") ?: "/${org.openmrs.ui.framework.WebConstants.CONTEXT_PATH}"
 
     def multipleLoginLocations = (loginLocations.size > 1);
@@ -175,7 +174,7 @@
         </li>
     </ul>
 
-    <div style="display:none">
+    <div>
         <div id="spinner" style="position:absolute; display:none">
             <img src="${ui.resourceLink("uicommons", "images/spinner.gif")}">
         </div>
